@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Lost in Space</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #000; color: #0f0; font-family: 'Courier New', monospace; overflow: hidden; }
+        .glitch { position: relative; font-family: 'Clash Display', sans-serif; font-size: 8rem; font-weight: bold; color: white; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .glitch::before { left: 2px; text-shadow: -1px 0 red; clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 3s infinite linear alternate-reverse; }
+        .glitch::after { left: -2px; text-shadow: -1px 0 blue; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2s infinite linear alternate-reverse; }
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            40% { clip: rect(10px, 9999px, 120px, 0); }
+            100% { clip: rect(50px, 9999px, 80px, 0); }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center h-screen text-center p-4">
+
+    <div class="glitch mb-4" data-text="404">404</div>
+    <p class="text-xl text-gray-400 mb-8 max-w-md">
+        SYSTEM ERROR: The page you are looking for has been disconnected from the server.
+    </p>
+    <a href="/" class="px-8 py-3 border border-green-500 text-green-500 font-bold uppercase hover:bg-green-500 hover:text-black transition">
+        Return to Base
+    </a>
+
+    <canvas id="matrix" class="fixed inset-0 z-[-1] opacity-20"></canvas>
+
+    <script>
+        // MATRIX RAIN EFFECT
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = "010101WEBGLUT010101";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
