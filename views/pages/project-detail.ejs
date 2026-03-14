@@ -1,0 +1,214 @@
+<%- include('../partials/header') %>
+
+<style>
+    /* GLOBAL SETTINGS */
+    html, body {
+        background-color: #050505;
+        font-family: 'Outfit', sans-serif;
+        overflow-x: hidden;
+    }
+
+    /* 1. HERO SECTION */
+    .project-hero {
+        height: 80vh;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 80px;
+        overflow: hidden;
+    }
+    .hero-bg {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        filter: brightness(0.4);
+        animation: zoomIn 20s infinite alternate; 
+    }
+    @keyframes zoomIn { from { transform: scale(1.1); } to { transform: scale(1.25); } }
+    
+    .hero-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, #050505 0%, transparent 60%);
+        z-index: 1;
+    }
+    .hero-content { position: relative; z-index: 10; width: 100%; }
+
+    /* 2. MOCKUP FRAME */
+    .mockup-container {
+        perspective: 1000px;
+        margin: 60px auto;
+        max-width: 900px;
+    }
+    .mockup-screen {
+        border: 2px solid #333;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 80px rgba(0, 243, 255, 0.15);
+        transform: rotateX(5deg);
+        transition: 0.5s;
+        background: #111; /* Fallback color */
+        position: relative;
+        min-height: 400px; /* Minimum height ensures box visibility */
+    }
+    .mockup-screen:hover { transform: rotateX(0deg) scale(1.02); border-color: #00f3ff; }
+
+    /* 3. GALLERY GRID */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+    }
+    .gallery-item {
+        height: 350px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        background: #0f0f0f;
+    }
+    
+    /* Anti-Break System Styles */
+    .gallery-img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: 0.5s; filter: grayscale(0.3);
+        opacity: 0; /* Load hone par dikhega */
+        animation: fadeInImg 0.5s forwards;
+    }
+    @keyframes fadeInImg { to { opacity: 1; } }
+    
+    .gallery-item:hover .gallery-img { transform: scale(1.1); filter: grayscale(0); }
+
+    /* Fallback Gradient (Jab image tut jaye tab ye dikhega) */
+    .fallback-gradient {
+        position: absolute; inset: 0;
+        background: linear-gradient(45deg, #111, #1a1a1a);
+        display: flex; align-items: center; justify-content: center;
+        flex-direction: column;
+        color: #333;
+        display: none; /* Default hidden */
+    }
+
+    /* ANIMATIONS */
+    .fade-up { animation: fadeUpAnim 1s ease-out forwards; opacity: 0; }
+    @keyframes fadeUpAnim { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+
+</style>
+
+<main>
+
+    <section class="project-hero">
+        <img src="<%= p.img_hero %>" class="hero-bg" alt="Hero Image"
+             onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex'">
+        
+        <div id="hero-fallback" class="hero-bg" style="display:none; background: linear-gradient(to bottom, #111, #000);"></div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="container mx-auto px-6 hero-content fade-up">
+            <div class="flex flex-col md:flex-row items-end justify-between gap-8">
+                <div>
+                    <span class="text-[#00f3ff] font-bold tracking-[0.3em] uppercase text-sm mb-4 block"><%= p.category %></span>
+                    <h1 class="text-5xl md:text-8xl font-bold text-white leading-none"><%= p.title %></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-y border-white/10 bg-white/5 backdrop-blur-md py-8">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="fade-up delay-1">
+                <span class="text-gray-500 text-xs uppercase tracking-widest block mb-1">Client</span>
+                <span class="text-white font-bold text-lg"><%= p.client %></span>
+            </div>
+            <div class="fade-up delay-1">
+                <span class="text-gray-500 text-xs uppercase tracking-widest block mb-1">Year</span>
+                <span class="text-white font-bold text-lg"><%= p.year %></span>
+            </div>
+            <div class="fade-up delay-2">
+                <span class="text-gray-500 text-xs uppercase tracking-widest block mb-1">Category</span>
+                <span class="text-white font-bold text-lg"><%= p.category %></span>
+            </div>
+            <div class="fade-up delay-2">
+                <span class="text-white font-bold text-lg text-[#00f3ff]">Live Preview ↗</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="fade-up">
+                <h2 class="text-[#00f3ff] font-bold uppercase tracking-widest mb-6">The Challenge</h2>
+                <p class="text-2xl font-bold text-white mb-6 leading-relaxed">"<%= p.challenge %>"</p>
+                <div class="h-1 w-20 bg-[#00f3ff] mb-6"></div>
+                <p class="text-gray-400 leading-loose text-lg"><%= p.desc %></p>
+            </div>
+            
+            <div class="fade-up delay-1 bg-[#111] p-10 rounded-3xl border border-white/10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#00f3ff] blur-[80px] opacity-20"></div>
+                <h3 class="text-white font-bold mb-6 text-xl">The Solution</h3>
+                <p class="text-gray-300 leading-relaxed mb-6"><%= p.solution %></p>
+                <div class="flex flex-wrap gap-3">
+                     <% if(p.stack) { %>
+                         <% p.stack.forEach(tech => { %>
+                            <span class="px-4 py-1 border border-white/20 rounded-full text-xs text-gray-300"><%= tech %></span>
+                        <% }) %>
+                     <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 px-6">
+        <div class="mockup-container fade-up delay-2">
+            <div class="mockup-screen">
+                <img src="<%= p.img_hero %>" class="w-full h-full object-cover"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                
+                <div class="fallback-gradient" style="height: 100%; display:none;">
+                    <i class="fas fa-laptop-code text-6xl text-white/10 mb-4"></i>
+                    <span class="text-white/20 font-bold uppercase tracking-widest">Project Preview</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-white mb-8 border-l-4 border-[#00f3ff] pl-6 fade-up">Project Gallery</h2>
+        
+        <div class="gallery-grid">
+            <% if(p.gallery && p.gallery.length > 0) { %>
+                <% p.gallery.forEach((imgUrl, index) => { %>
+                    <div class="gallery-item" style="animation-delay: <%= index * 0.1 %>s">
+                        
+                        <img src="<%= imgUrl %>" class="gallery-img" alt="Gallery Shot"
+                             onerror="this.style.display='none'; document.getElementById('fallback-<%= index %>').style.display='flex'">
+                        
+                        <div id="fallback-<%= index %>" class="fallback-gradient">
+                            <i class="fas fa-image text-4xl text-white/10 mb-2"></i>
+                            <span class="text-xs text-white/20 font-bold tracking-widest">WEBGLUT SHOT</span>
+                        </div>
+
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="gallery-item fallback-gradient" style="display:flex"><i class="fas fa-layer-group text-4xl text-white/20"></i></div>
+                <div class="gallery-item fallback-gradient" style="display:flex"><i class="fas fa-layer-group text-4xl text-white/20"></i></div>
+                <div class="gallery-item fallback-gradient" style="display:flex"><i class="fas fa-layer-group text-4xl text-white/20"></i></div>
+            <% } %>
+        </div>
+    </section>
+
+    <section class="py-20 border-t border-white/10 text-center">
+        <a href="/portfolio" class="text-4xl md:text-5xl font-bold text-white hover:text-[#00f3ff] transition">
+            View All Projects <i class="fas fa-arrow-right ml-4"></i>
+        </a>
+    </section>
+
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

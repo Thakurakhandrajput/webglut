@@ -1,0 +1,145 @@
+<%- include('../partials/header') %>
+
+<style>
+    /* CUSTOM STYLES FOR LEGAL PAGE */
+    .legal-gradient-text {
+        background: linear-gradient(to right, #fff, #666);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .legal-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+    .legal-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: #00f3ff;
+        transform: translateY(-5px);
+    }
+    .section-number {
+        font-family: 'Clash Display', sans-serif;
+        color: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 4rem;
+        font-weight: bold;
+        line-height: 1;
+        pointer-events: none;
+        transition: color 0.3s;
+    }
+    .legal-card:hover .section-number {
+        color: rgba(0, 243, 255, 0.2);
+    }
+</style>
+
+<main class="min-h-screen bg-[#050505] pt-32 pb-20 relative overflow-hidden">
+
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#00f3ff] opacity-[0.03] blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900 opacity-[0.05] blur-[150px] rounded-full"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="mb-20 text-center md:text-left">
+            <span class="inline-block py-1 px-3 rounded-full border border-[#00f3ff]/30 bg-[#00f3ff]/5 text-[#00f3ff] text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
+                Legal Documentation
+            </span>
+            <h1 class="text-6xl md:text-9xl font-display font-bold text-white mb-6 tracking-tight leading-none">
+                PRIVACY <br> <span class="legal-gradient-text">POLICY.</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-6 items-start md:items-center text-gray-500 text-sm uppercase tracking-widest font-mono">
+                <span><i class="fas fa-clock text-[#00f3ff] mr-2"></i> Last Updated: Jan 18, 2026</span>
+                <span class="hidden md:inline text-gray-700">|</span>
+                <span><i class="fas fa-shield-alt text-[#00f3ff] mr-2"></i> Version 2.0 (Global)</span>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-10">
+            
+            <div class="hidden md:block md:col-span-3">
+                <div class="sticky top-32 space-y-4 border-l border-white/10 pl-6">
+                    <p class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Table of Contents</p>
+                    <a href="#intro" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">01. Introduction</a>
+                    <a href="#collection" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">02. Data Collection</a>
+                    <a href="#usage" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">03. Usage Rights</a>
+                    <a href="#security" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">04. Security Protocol</a>
+                    <a href="#cookies" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">05. Cookie Policy</a>
+                    <a href="#contact" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">06. Contact Info</a>
+                </div>
+            </div>
+
+            <div class="md:col-span-9 space-y-8">
+
+                <div id="intro" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">01</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Introduction</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        At Webglut, we consider digital privacy a fundamental right. This policy outlines our protocols for handling your data with the same precision and security we apply to our code. By using our platform, you entrust us with your information, and we take that responsibility seriously.
+                    </p>
+                </div>
+
+                <div id="collection" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">02</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Data Collection</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light mb-4">
+                        We minimize data collection to what is strictly necessary for project execution:
+                    </p>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-[#00f3ff] mt-1"></i>
+                            <span><strong>Identity Data:</strong> Name, Business Name, or Username.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-[#00f3ff] mt-1"></i>
+                            <span><strong>Contact Data:</strong> Email address, Phone number (for WhatsApp integration).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-[#00f3ff] mt-1"></i>
+                            <span><strong>Technical Data:</strong> IP address, browser type (for analytics).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="usage" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">03</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Usage of Information</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        Your data powers the "Digital Alchemy." We use it solely to:
+                        <br><br>
+                        1. Process and deliver your web/app development projects.<br>
+                        2. Communicate project updates via Email or WhatsApp.<br>
+                        3. Improve our website performance based on user interaction.<br>
+                        <br>
+                        <span class="text-white font-bold">We never sell your data to third-party advertisers.</span>
+                    </p>
+                </div>
+
+                <div id="security" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">04</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Security Protocol</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        We employ industry-standard SSL encryption and secure server protocols. Access to your personal data is restricted to employees, agents, and contractors who have a strict business need to know and are subject to a duty of confidentiality.
+                    </p>
+                </div>
+
+                <div id="contact" class="mt-16 p-8 border border-[#00f3ff]/20 bg-[#00f3ff]/5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Have Questions?</h3>
+                        <p class="text-gray-400 text-sm">Our legal team is ready to clarify any concerns.</p>
+                    </div>
+                    <a href="mailto:contact@webglut.in" class="px-8 py-3 bg-[#00f3ff] text-black font-bold rounded-full hover:scale-105 transition shadow-[0_0_20px_rgba(0,243,255,0.3)]">
+                        Contact Legal Team
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

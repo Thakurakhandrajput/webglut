@@ -1,0 +1,149 @@
+<%- include('../partials/header') %>
+
+<style>
+    /* CUSTOM STYLES (Matching Privacy Policy) */
+    .legal-gradient-text {
+        background: linear-gradient(to right, #fff, #666);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .legal-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+    .legal-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: #00f3ff;
+        transform: translateY(-5px);
+    }
+    .section-number {
+        font-family: 'Clash Display', sans-serif;
+        color: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 4rem;
+        font-weight: bold;
+        line-height: 1;
+        pointer-events: none;
+        transition: color 0.3s;
+    }
+    .legal-card:hover .section-number {
+        color: rgba(0, 243, 255, 0.2);
+    }
+</style>
+
+<main class="min-h-screen bg-[#050505] pt-32 pb-20 relative overflow-hidden">
+
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-[#00f3ff] opacity-[0.03] blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-purple-900 opacity-[0.05] blur-[150px] rounded-full"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="mb-20 text-center md:text-left">
+            <span class="inline-block py-1 px-3 rounded-full border border-[#00f3ff]/30 bg-[#00f3ff]/5 text-[#00f3ff] text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
+                Legal Documentation
+            </span>
+            <h1 class="text-5xl md:text-8xl font-display font-bold text-white mb-6 tracking-tight leading-none">
+                TERMS & <br> <span class="legal-gradient-text">CONDITIONS.</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-6 items-start md:items-center text-gray-500 text-sm uppercase tracking-widest font-mono">
+                <span><i class="fas fa-file-contract text-[#00f3ff] mr-2"></i> Last Updated: Jan 18, 2026</span>
+                <span class="hidden md:inline text-gray-700">|</span>
+                <span><i class="fas fa-globe text-[#00f3ff] mr-2"></i> Jurisdiction: India</span>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-10">
+            
+            <div class="hidden md:block md:col-span-3">
+                <div class="sticky top-32 space-y-4 border-l border-white/10 pl-6">
+                    <p class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Table of Contents</p>
+                    <a href="#acceptance" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">01. Acceptance</a>
+                    <a href="#services" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">02. Services Scope</a>
+                    <a href="#payments" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">03. Payments</a>
+                    <a href="#ip" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">04. Intellectual Property</a>
+                    <a href="#liability" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">05. Liability</a>
+                    <a href="#contact" class="block text-gray-500 hover:text-[#00f3ff] transition text-sm">06. Contact Info</a>
+                </div>
+            </div>
+
+            <div class="md:col-span-9 space-y-8">
+
+                <div id="acceptance" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">01</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Acceptance of Terms</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        By accessing or using the Webglut website and services, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, you may not access our services. These terms apply to all visitors, users, and clients.
+                    </p>
+                </div>
+
+                <div id="services" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">02</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Scope of Services</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light mb-4">
+                        Webglut provides digital solutions including but not limited to:
+                    </p>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-code text-[#00f3ff] mt-1"></i>
+                            <span>Web & App Development</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-paint-brush text-[#00f3ff] mt-1"></i>
+                            <span>UI/UX Design & Branding</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-search text-[#00f3ff] mt-1"></i>
+                            <span>SEO & Digital Marketing</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="payments" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">03</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Payments & Refunds</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        <strong>Project Commencement:</strong> A 50% advance deposit is required to initiate any project. The remaining balance is due upon project completion/delivery.
+                        <br><br>
+                        <strong>Refund Policy:</strong> Since we offer digital services and custom code, advance payments are generally non-refundable once the work has commenced.
+                    </p>
+                </div>
+
+                <div id="ip" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">04</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Intellectual Property</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        Upon full payment, the client owns the final exported product (website/app). However, Webglut retains the right to use the project in our portfolio and retains ownership of any pre-existing code libraries, tools, or frameworks used during development.
+                    </p>
+                </div>
+
+                <div id="liability" class="legal-card p-10 rounded-3xl relative">
+                    <div class="section-number">05</div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-6">Limitation of Liability</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light">
+                        Webglut shall not be held liable for any indirect, incidental, or consequential damages arising from the use of our services, including but not limited to server downtimes (hosted by third parties), data loss, or business interruption.
+                    </p>
+                </div>
+
+                <div id="contact" class="mt-16 p-8 border border-[#00f3ff]/20 bg-[#00f3ff]/5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Legal Inquiries?</h3>
+                        <p class="text-gray-400 text-sm">Contact our support team for clarifications.</p>
+                    </div>
+                    <a href="mailto:contact@webglut.in" class="px-8 py-3 bg-[#00f3ff] text-black font-bold rounded-full hover:scale-105 transition shadow-[0_0_20px_rgba(0,243,255,0.3)]">
+                        Contact Support
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

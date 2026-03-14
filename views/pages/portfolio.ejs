@@ -1,0 +1,118 @@
+<%- include('../partials/header') %>
+
+<style>
+    html, body { background-color: #000000; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+
+    .portfolio-hero {
+        padding-top: 160px; padding-bottom: 60px; text-align: center;
+        background: radial-gradient(circle at top, rgba(0, 243, 255, 0.08) 0%, rgba(0,0,0,0) 60%);
+    }
+
+    .project-card {
+        background-color: #0a0a0a; border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px; overflow: hidden; transition: all 0.4s ease;
+        height: 100%; display: flex; flex-direction: column; position: relative;
+    }
+    .project-card:hover { transform: translateY(-8px); border-color: #00f3ff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+
+    .card-img-box { height: 240px; width: 100%; overflow: hidden; position: relative; background: #0f0f0f; }
+    
+    .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .project-card:hover .card-img { transform: scale(1.1); }
+
+    .fallback-card {
+        position: absolute; inset: 0; background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+        display: none; align-items: center; justify-content: center; flex-direction: column;
+    }
+
+    .card-content { padding: 1.5rem; flex-grow: 1; }
+    .category-tag { font-size: 0.7rem; text-transform: uppercase; color: #00f3ff; font-weight: bold; margin-bottom: 8px; display: block; }
+    .gsap-reveal { opacity: 0; transform: translateY(30px); }
+</style>
+
+<main>
+    <section class="portfolio-hero container mx-auto px-6">
+        <span class="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-6 inline-block gsap-reveal">Our Portfolio</span>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 gsap-reveal">Selected <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f3ff] to-purple-600">Masterpieces.</span></h1>
+    </section>
+
+    <section class="pb-32 container mx-auto px-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <% 
+            // Yeh list wahi honi chahiye jo app.js ke projects object ki keys hain
+            const slugs = [
+                'corporate-portal', 'ride-app', 'smart-card', 'email-setup', 
+                'ai-support', 'fashion-store', 'hrm-system', 'dental-seo', 
+                'startup-launch', 'news-security', 'tech-blog', 'brand-kit', 
+                'coffee-logo', 'news-app', 'ecom-seo', 'fintech-ui', '3d-portfolio'
+            ];
+            %>
+
+            <% slugs.forEach((slug) => { 
+                // Hum manually projects object se data nahi le sakte yahan, 
+                // isliye humne app.js mein projects ko res.locals mein pass karna hoga
+                // YA fir niche diye gaye objects ka istemal karein jo aapki service se match karte ho:
+                
+                const displayData = {
+                    'corporate-portal': { title: 'FinCorp Global', cat: 'Web Development', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800' },
+                    'ride-app': { title: 'GoRide Taxi', cat: 'App Development', img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800' },
+                    'smart-card': { title: 'CEO Smart Profile', cat: 'Digital Card', img: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800' },
+                    'email-setup': { title: 'Legal Firm Suite', cat: 'Professional Email', img: 'https://images.unsplash.com/photo-1596526131083-e8c633c948d2?q=80&w=800' },
+                    'ai-support': { title: 'SupportBot 2.0', cat: 'AI Chatbot', img: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=800' },
+                    'fashion-store': { title: 'Velvet Mode', cat: 'E-Commerce', img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800' },
+                    'hrm-system': { title: 'StaffMate HR', cat: 'SaaS Platform', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800' },
+                    'dental-seo': { title: 'Smile Dental', cat: 'Local SEO', img: 'https://images.unsplash.com/photo-1588776814546-1b98f095bb76?q=80&w=800' },
+                    'startup-launch': { title: 'Fresh Foods', cat: 'Website on Rent', img: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800' },
+                    'news-security': { title: 'Daily Times', cat: 'Maintenance', img: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800' },
+                    'tech-blog': { title: 'TechReview Pro', cat: 'Content', img: 'https://images.unsplash.com/photo-1499750310159-529800cf2c5a?q=80&w=800' },
+                    'brand-kit': { title: 'Neon Energy', cat: 'Graphic Design', img: 'https://images.unsplash.com/photo-1626785774573-4b799314346d?q=80&w=800' },
+                    'coffee-logo': { title: 'Bean & Brew', cat: 'Logo Design', img: 'https://images.unsplash.com/photo-1506316278852-c23f2f53b8ba?q=80&w=800' },
+                    'news-app': { title: 'City News Live', cat: 'Web to App', img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=800' },
+                    'ecom-seo': { title: 'Urban Decor', cat: 'SEO Optimization', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800' },
+                    'fintech-ui': { title: 'PayFast Wallet', cat: 'UI/UX Design', img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800' },
+                    '3d-portfolio': { title: 'Meta Architect', cat: '3D Experience', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800' }
+                };
+
+                const item = displayData[slug];
+                if(!item) return;
+            %>
+            <a href="/project/<%= slug %>" class="block gsap-reveal">
+                <div class="project-card group">
+                    <div class="card-img-box">
+                        <img src="<%= item.img %>" 
+                             class="card-img" 
+                             alt="<%= item.title %>"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        
+                        <div class="fallback-card">
+                            <i class="fas fa-project-diagram text-4xl text-white/10 mb-2"></i>
+                            <span class="text-[10px] text-white/20 font-bold uppercase tracking-widest">WEBGLUT SHOT</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <span class="category-tag"><%= item.cat %></span>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-[#00f3ff]"><%= item.title %></h3>
+                    </div>
+                </div>
+            </a>
+            <% }) %>
+
+        </div>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<script>
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.gsap-reveal').forEach(elem => {
+            gsap.to(elem, {
+                scrollTrigger: { trigger: elem, start: "top 90%" },
+                y: 0, opacity: 1, duration: 0.6, ease: "power2.out"
+            });
+        });
+    }
+</script>

@@ -1,0 +1,345 @@
+<%- include('../partials/header') %>
+
+<style>
+    /* Global Settings */
+    html, body {
+        background-color: #000000;
+        font-family: 'Outfit', sans-serif;
+        overflow-x: hidden;
+    }
+
+    /* MATTE CARD STYLE (Screenshot Reference) */
+    .service-card {
+        background-color: #0a0a0a; /* Matte Black */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px; /* Soft Rounded Corners */
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    /* Hover Effect */
+    .service-card:hover {
+        border-color: #00f3ff;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Icon Box Style */
+    .icon-box {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        transition: 0.3s;
+    }
+    
+    /* Bullet Points */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin-top: auto; /* Push to bottom */
+        padding-top: 1.5rem;
+    }
+    .feature-list li {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .feature-list li::before {
+        content: '•';
+        color: #00f3ff;
+        font-weight: bold;
+    }
+    
+    /* Reveal Animation */
+    .gsap-reveal { opacity: 0; transform: translateY(30px); }
+</style>
+
+<main class="relative z-10 pt-32 pb-20 px-6">
+    
+    <div class="text-center mb-20 max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 gsap-reveal">
+            Our Expertise
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed gsap-reveal">
+            We provide end-to-end digital solutions. From the first line of code to the final server deployment.
+        </p>
+    </div>
+
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <a href="/web-development" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-cyan-900/20 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Web Development</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Custom websites using PHP Laravel and Node.js. We build scalable platforms that handle high traffic.</p>
+                <ul class="feature-list">
+                    <li>E-Commerce Stores</li>
+                    <li>Corporate Portals</li>
+                    <li>SaaS Platforms</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/app-development" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-purple-900/20 text-purple-400 group-hover:bg-purple-400 group-hover:text-black">
+                    <i class="fab fa-android"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">App Development</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Native Android & iOS apps. Features include live GPS tracking, booking, and seamless UI.</p>
+                <ul class="feature-list">
+                    <li>Android & iOS</li>
+                    <li>Live Tracking Apps</li>
+                    <li>Booking Engines</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/web-to-app-development" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-blue-900/20 text-blue-400 group-hover:bg-blue-400 group-hover:text-black">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Web to App</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Convert your existing website into a fully functional Play Store application instantly.</p>
+                <ul class="feature-list">
+                    <li>WebView Wrapper</li>
+                    <li>Push Notifications</li>
+                    <li>Play Store Publish</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/digital-visiting-card" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-pink-900/20 text-pink-400 group-hover:bg-pink-400 group-hover:text-black">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Digital Visiting Card</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Smart NFC & QR enabled cards. Share your contact details with just one tap.</p>
+                <ul class="feature-list">
+                    <li>One-Tap Share</li>
+                    <li>QR Code Integration</li>
+                    <li>Interactive Profile</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/professional-email-service" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-yellow-900/20 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-black">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Pro Email Service</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Get custom domain emails (you@yourcompany.com) to build trust with clients.</p>
+                <ul class="feature-list">
+                    <li>G-Suite Setup</li>
+                    <li>Custom Domain</li>
+                    <li>Spam Protection</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/chatbot-development" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-green-900/20 text-green-400 group-hover:bg-green-400 group-hover:text-black">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Chatbot Development</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">AI-powered chatbots that handle customer support and leads 24/7 automatically.</p>
+                <ul class="feature-list">
+                    <li>WhatsApp Bots</li>
+                    <li>Website Support AI</li>
+                    <li>Auto-Reply System</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/e-commerce-store-development" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-orange-900/20 text-orange-400 group-hover:bg-orange-400 group-hover:text-black">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">E-commerce Store</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Complete online store setup with payment gateways, inventory, and admin panel.</p>
+                <ul class="feature-list">
+                    <li>Payment Gateway</li>
+                    <li>Inventory Mgmt</li>
+                    <li>Admin Panel</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/saas-development" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-indigo-900/20 text-indigo-400 group-hover:bg-indigo-400 group-hover:text-black">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">SaaS Development</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Multi-tenant software solutions. Build your own software product and sell subscriptions.</p>
+                <ul class="feature-list">
+                    <li>Subscription Models</li>
+                    <li>User Management</li>
+                    <li>Cloud Hosting</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/local-seo" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-red-900/20 text-red-400 group-hover:bg-red-400 group-hover:text-black">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Local SEO</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Rank your business on Google Maps and local search results to get nearby customers.</p>
+                <ul class="feature-list">
+                    <li>GMB Optimization</li>
+                    <li>Local Keywords</li>
+                    <li>Review Mgmt</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/website-on-rent" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-teal-900/20 text-teal-400 group-hover:bg-teal-400 group-hover:text-black">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Website on Rent</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Don't want to invest heavy upfront? Get a premium website on a monthly rental basis.</p>
+                <ul class="feature-list">
+                    <li>Low Upfront Cost</li>
+                    <li>Monthly Plans</li>
+                    <li>Includes Hosting</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/website-maintenance" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-gray-800 text-gray-400 group-hover:bg-white group-hover:text-black">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Maintenance</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">We keep your site secure and updated. Bug fixes, speed optimization, and backups.</p>
+                <ul class="feature-list">
+                    <li>Security Updates</li>
+                    <li>Speed Optimization</li>
+                    <li>Regular Backups</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/seo-optimization" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-lime-900/20 text-lime-400 group-hover:bg-lime-400 group-hover:text-black">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">SEO Optimization</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Advanced On-page and Off-page SEO to rank your website #1 on Google.</p>
+                <ul class="feature-list">
+                    <li>Keyword Ranking</li>
+                    <li>Backlink Building</li>
+                    <li>Traffic Growth</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/content-creation" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-rose-900/20 text-rose-400 group-hover:bg-rose-400 group-hover:text-black">
+                    <i class="fas fa-pen-nib"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Content Creation</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">High-quality blogs, website copy, and scripts that drive engagement and sales.</p>
+                <ul class="feature-list">
+                    <li>Blog Writing</li>
+                    <li>Copywriting</li>
+                    <li>Video Scripts</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/graphic-design" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-violet-900/20 text-violet-400 group-hover:bg-violet-400 group-hover:text-black">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Graphic Design</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Stunning social media posts, banners, and marketing assets for your brand.</p>
+                <ul class="feature-list">
+                    <li>Social Media Posts</li>
+                    <li>Banners & Ads</li>
+                    <li>Brand Kits</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/logo-creation" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-amber-900/20 text-amber-400 group-hover:bg-amber-400 group-hover:text-black">
+                    <i class="fas fa-vector-square"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Logo Creation</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">Unique and memorable brand identities. Vector logos that scale perfectly.</p>
+                <ul class="feature-list">
+                    <li>Vector Design</li>
+                    <li>Brand Identity</li>
+                    <li>Re-branding</li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="/web-design" class="gsap-reveal block h-full">
+            <div class="service-card p-8 group">
+                <div class="icon-box bg-fuchsia-900/20 text-fuchsia-400 group-hover:bg-fuchsia-400 group-hover:text-black">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Web Design</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">UI/UX design focused on user experience. Wireframes and interactive prototypes.</p>
+                <ul class="feature-list">
+                    <li>UI/UX Design</li>
+                    <li>Figma Prototypes</li>
+                    <li>User Research</li>
+                </ul>
+            </div>
+        </a>
+
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
+<script>
+    // SCROLL REVEAL LOGIC
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.gsap-reveal').forEach(function(elem) {
+            gsap.to(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+        });
+    }
+</script>

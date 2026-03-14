@@ -1,0 +1,113 @@
+<%- include('../partials/header') %>
+
+<script>
+    const fallbackCover = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920";
+</script>
+
+<style>
+    /* Premium Hover Effect */
+    .sample-card {
+        background: #0f0f0f;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.4s ease;
+    }
+    .sample-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(0, 243, 255, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+    
+    /* Image Container Overlay */
+    .img-overlay {
+        background: linear-gradient(to top, #0f0f0f 10%, transparent 100%);
+    }
+</style>
+
+<main class="bg-[#050505] min-h-screen pt-32 pb-20 relative overflow-hidden">
+    
+    <div class="fixed top-20 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-0 w-[500px] h-[500px] bg-cyan-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="text-center mb-24 gsap-reveal">
+            <span class="px-6 py-2 rounded-full border border-cyan-900/50 bg-cyan-950/20 text-[#00f3ff] text-xs font-bold uppercase tracking-widest mb-6 inline-block">
+                Portfolio Gallery
+            </span>
+            <h1 class="text-5xl md:text-8xl font-display font-bold text-white mb-6">
+                Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Creations.</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                Explore 30+ live projects delivered with precision engineering and premium design.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <% if (typeof samples !== 'undefined' && samples.length > 0) { %>
+                <% samples.forEach(function(item, index) { %>
+                    
+                    <div class="sample-card group rounded-[30px] overflow-hidden relative gsap-reveal">
+                        
+                        <div class="h-64 overflow-hidden relative">
+                            <div class="absolute top-4 right-4 z-20">
+                                <span class="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-bold text-[#00f3ff] uppercase tracking-wider">
+                                    <%= item.cat %>
+                                </span>
+                            </div>
+
+                            <img 
+                                src="<%= item.img %>" 
+                                alt="<%= item.title %>" 
+                                class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                                onerror="this.onerror=null; this.src=fallbackCover;"
+                            >
+                            
+                            <div class="absolute inset-0 img-overlay z-10"></div>
+                        </div>
+
+                        <div class="p-8 relative z-20 -mt-6">
+                            <h3 class="text-2xl font-display font-bold text-white mb-3 group-hover:text-[#00f3ff] transition">
+                                <%= item.title %>
+                            </h3>
+                            
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <% item.tech.forEach(function(t) { %>
+                                    <span class="text-[10px] text-gray-400 border border-white/10 px-2 py-1 rounded bg-white/5 uppercase tracking-wider">
+                                        <%= t %>
+                                    </span>
+                                <% }); %>
+                            </div>
+
+                            <a href="/samples/<%= item.id %>" class="w-full py-3 border border-white/10 rounded-xl flex items-center justify-center gap-2 text-gray-300 font-bold text-xs uppercase tracking-widest hover:bg-[#00f3ff] hover:text-black hover:border-[#00f3ff] transition duration-300">
+                                View Case Study <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                <% }); %>
+            <% } else { %>
+                <div class="col-span-full text-center py-20">
+                    <h3 class="text-2xl text-gray-500">Loading Projects...</h3>
+                </div>
+            <% } %>
+
+        </div>
+    </div>
+</main>
+
+<script>
+    // Staggered Animation for Grid
+    if(typeof gsap !== 'undefined') {
+        gsap.from(".gsap-reveal", {
+            y: 60, 
+            opacity: 0, 
+            duration: 1, 
+            stagger: 0.1, 
+            ease: "power3.out",
+            scrollTrigger: { trigger: ".grid", start: "top 85%" }
+        });
+    }
+</script>
+
+<%- include('../partials/footer') %>

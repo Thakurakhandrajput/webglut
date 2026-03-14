@@ -1,0 +1,199 @@
+<%- include('../partials/header') %>
+
+<script>
+    const fallbackImage = "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1920";
+</script>
+
+<style>
+    /* 1. SCREENSHOT MATCH STYLES */
+    .btn-teal {
+        background-color: #0d9488; /* Teal color from screenshot */
+        color: black;
+        font-weight: 800;
+        border-radius: 8px; /* Slightly squared rounded corners */
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(13, 148, 136, 0.2);
+    }
+    .btn-teal:hover {
+        background-color: #14b8a6;
+        box-shadow: 0 0 30px rgba(20, 184, 166, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: white;
+        font-weight: 700;
+        border-radius: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+        border-color: white;
+        background: rgba(255,255,255,0.05);
+    }
+
+    /* Challenge/Solution Card (Exact Look) */
+    .insight-card {
+        background-color: #0a0a0a; /* Darker than bg */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 32px;
+    }
+
+    /* Tag Styling */
+    .category-pill {
+        border: 1px solid #0d9488;
+        background: rgba(13, 148, 136, 0.1);
+        color: #14b8a6;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 6px 16px;
+        border-radius: 50px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    /* Browser Mockup (Locked) */
+    .device-mockup {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+        background: #111;
+        overflow: hidden;
+        transition: transform 0.5s;
+    }
+    .device-mockup:hover { transform: translateY(-5px); }
+</style>
+
+<main class="bg-[#050505] min-h-screen text-white relative overflow-x-hidden">
+    
+    <div class="fixed top-0 left-0 w-[500px] h-[500px] bg-teal-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 pt-32 pb-20 relative z-10">
+        
+        <a href="/samples" class="inline-flex items-center gap-3 text-gray-500 hover:text-white mb-12 text-[10px] font-bold uppercase tracking-[0.2em] transition opacity-70 hover:opacity-100">
+            <i class="fas fa-arrow-left"></i> Back to Samples
+        </a>
+
+        <div class="grid lg:grid-cols-12 gap-16 items-start">
+            
+            <div class="lg:col-span-5">
+                <div class="gsap-reveal">
+                    
+                    <div class="category-pill">
+                        <%= sample.cat %>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 leading-tight text-white">
+                        <%= sample.title %>
+                    </h1>
+                    
+                    <p class="text-gray-400 text-lg leading-relaxed mb-10 font-light">
+                        This project showcases a premium digital solution tailored for high-performance and scalability.
+                    </p>
+
+                    <div class="mb-10">
+                        <h4 class="text-[10px] font-bold text-white uppercase tracking-widest mb-4 opacity-80">Technology Stack</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <% if (sample.tech && sample.tech.length) { %>
+                                <% sample.tech.forEach(t => { %>
+                                    <span class="px-4 py-2 border border-white/10 rounded-lg text-xs text-gray-400 bg-white/5">
+                                        <%= t %>
+                                    </span>
+                                <% }) %>
+                            <% } else { %>
+                                <span class="px-4 py-2 border border-white/10 rounded-lg text-xs text-gray-400 bg-white/5">Modern Stack</span>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-16">
+                        <% if (['gym-web', 'pet-shop'].includes(sample.id)) { %> 
+                            <button class="btn-teal py-4 flex flex-col items-center justify-center gap-1 opacity-100 cursor-pointer" onclick="window.open('<%= sample.img %>', '_blank')">
+                                <span class="text-xs">Private Project</span>
+                                <i class="fas fa-lock text-[10px] opacity-70"></i>
+                            </button>
+                        <% } else { %>
+                            <a href="#" class="btn-teal py-4 flex flex-col items-center justify-center gap-1 text-center decoration-0 hover:text-black">
+                                <span class="text-xs">Live Preview</span>
+                                <i class="fas fa-external-link-alt text-[10px] opacity-70"></i>
+                            </a>
+                        <% } %>
+
+                        <a href="/contact" class="btn-outline py-4 flex flex-col items-center justify-center gap-1 text-center hover:text-white">
+                            <span class="text-xs">Book Similar</span>
+                            <i class="fas fa-arrow-right text-[10px] opacity-70"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="insight-card gsap-reveal relative">
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-teal-400 font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-exclamation-circle"></i> The Challenge
+                            </h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                Client needed a robust, scalable system that could handle high traffic while maintaining sub-second load times and visual fidelity.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-green-400 font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-check-circle"></i> The Solution
+                            </h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">
+                                We engineered a custom architecture using the latest web technologies, ensuring 99.9% uptime and a seamless user experience across all devices.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 sticky top-32 gsap-reveal">
+                <div class="device-mockup aspect-[16/10] relative group">
+                    <div class="h-10 bg-[#151515] border-b border-white/5 flex items-center px-4 gap-2 z-20 relative">
+                        <div class="flex gap-1.5">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
+                        </div>
+                        <div class="ml-4 flex-1 bg-black/40 h-6 rounded flex items-center px-3 border border-white/5">
+                            <span class="text-[9px] text-gray-600 font-mono flex items-center gap-2">
+                                <i class="fas fa-lock text-[8px]"></i> https://webglut.in/preview/<%= sample.id %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <img 
+                        src="<%= sample.img %>" 
+                        alt="<%= sample.title %>" 
+                        class="w-full h-full object-cover relative z-10 transition duration-700 group-hover:scale-[1.02]"
+                        onerror="this.onerror=null; this.src=fallbackImage;"
+                    >
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-20 z-20 pointer-events-none"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<script>
+    // Animation Logic
+    if(typeof gsap !== 'undefined') {
+        gsap.from(".gsap-reveal", {
+            y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out"
+        });
+    }
+</script>
+
+<%- include('../partials/footer') %>
