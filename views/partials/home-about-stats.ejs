@@ -1,0 +1,104 @@
+<section id="about-section" class="relative py-32 bg-[#050505] overflow-hidden border-t border-white/5">
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="grid lg:grid-cols-2 gap-24 items-start">
+            
+            <div class="reveal-content opacity-0 translate-y-8 transition-all duration-1000 ease-out">
+                <span class="text-[#00f3ff] text-xs font-bold uppercase tracking-[0.2em] mb-6 block">
+                    — The Agency
+                </span>
+                
+                <h2 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-8 leading-tight">
+                    We Build <br>
+                    <span class="text-gray-500">Digital Legacy.</span>
+                </h2>
+                
+                <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-md">
+                    Webglut bridges the gap between raw code and human emotion. We don't just design websites; we architect brand authority.
+                </p>
+
+                <div class="flex gap-6 text-sm font-medium text-white">
+                    <span class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-[#00f3ff] rounded-full"></div> Strategy</span>
+                    <span class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-[#00f3ff] rounded-full"></div> Design</span>
+                    <span class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-[#00f3ff] rounded-full"></div> Development</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden reveal-content opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-200">
+                
+                <div class="bg-[#0a0a0a] p-10 group hover:bg-[#111] transition duration-500">
+                    <h3 class="text-5xl md:text-6xl font-display font-bold text-white mb-2 group-hover:text-[#00f3ff] transition duration-300">
+                        <span class="counter" data-target="50">0</span>+
+                    </h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-medium">Projects</p>
+                </div>
+
+                <div class="bg-[#0a0a0a] p-10 group hover:bg-[#111] transition duration-500">
+                    <h3 class="text-5xl md:text-6xl font-display font-bold text-white mb-2 group-hover:text-[#00f3ff] transition duration-300">
+                        <span class="counter" data-target="100">0</span>%
+                    </h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-medium">Satisfaction</p>
+                </div>
+
+                <div class="bg-[#0a0a0a] p-10 group hover:bg-[#111] transition duration-500">
+                    <h3 class="text-5xl md:text-6xl font-display font-bold text-white mb-2 group-hover:text-[#00f3ff] transition duration-300">
+                        <span class="counter" data-target="24">0</span>/7
+                    </h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-medium">Support</p>
+                </div>
+
+                <div class="bg-[#0a0a0a] p-10 group hover:bg-[#111] transition duration-500">
+                    <h3 class="text-5xl md:text-6xl font-display font-bold text-white mb-2 group-hover:text-[#00f3ff] transition duration-300">
+                        <span class="counter" data-target="5">0</span>★
+                    </h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-medium">Rated</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = { threshold: 0.2 };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Reveal Animation
+                    entry.target.classList.remove('opacity-0', 'translate-y-8');
+                    
+                    // Trigger Counters
+                    const counters = entry.target.querySelectorAll('.counter');
+                    if(counters.length > 0) runCounters(counters);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-content').forEach((el) => observer.observe(el));
+
+        function runCounters(counters) {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 1500; // 1.5s for elegance
+                const increment = target / (duration / 16);
+                
+                let current = 0;
+                const updateCount = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+    });
+</script>

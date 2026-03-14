@@ -1,0 +1,142 @@
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    
+    <div id="hero-spotlight" class="absolute inset-0 pointer-events-none z-0 opacity-40" 
+         style="background: radial-gradient(600px circle at var(--x) var(--y), rgba(0, 243, 255, 0.15), transparent 40%);">
+    </div>
+    
+    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 z-0 pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+        
+        <div class="text-center lg:text-left">
+            
+            <div id="hero-badge" class="opacity-0 translate-y-10 transition-all duration-1000 ease-out inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00f3ff]/30 bg-[#00f3ff]/5 backdrop-blur-md mb-8">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f3ff] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00f3ff]"></span>
+                </span>
+                <span class="text-[#00f3ff] text-[10px] font-bold uppercase tracking-widest">Available for new projects</span>
+            </div>
+
+            <h1 id="hero-title" class="opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-200 text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-tight text-white mb-6">
+                WE CRAFT <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f3ff] via-white to-[#00f3ff] bg-300% animate-gradient">DIGITAL CHAOS</span>
+            </h1>
+
+            <p id="hero-desc" class="opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-500 text-gray-400 text-lg md:text-xl max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                We don't just build websites; we engineer <strong>digital dominance</strong>. High-performance code mixed with hypnotic design.
+            </p>
+
+            <div id="hero-btns" class="opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-700 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="/cost-estimator" class="px-8 py-4 bg-[#00f3ff] text-black font-bold text-sm uppercase tracking-widest rounded-full hover:scale-105 hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300">
+                    <i class="fas fa-calculator mr-2"></i> Estimate Cost
+                </a>
+                <a href="/portfolio" class="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300">
+                    View Work
+                </a>
+            </div>
+
+            <div id="hero-stack" class="opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-1000 mt-12 opacity-50 grayscale hover:grayscale-0">
+                <p class="text-xs uppercase tracking-widest text-gray-600 mb-4">Powering Next-Gen Brands With</p>
+                <div class="flex gap-6 justify-center lg:justify-start text-2xl text-gray-400">
+                    <i class="fab fa-react hover:text-[#61DAFB] transition"></i>
+                    <i class="fab fa-node hover:text-[#339933] transition"></i>
+                    <i class="fab fa-aws hover:text-[#FF9900] transition"></i>
+                    <i class="fab fa-android hover:text-[#3DDC84] transition"></i>
+                    <i class="fab fa-python hover:text-[#3776AB] transition"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="hero-visual" class="opacity-0 translate-x-10 transition-all duration-1000 ease-out delay-500 relative hidden lg:block h-[600px]">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#00f3ff] opacity-20 blur-[100px] rounded-full animate-pulse"></div>
+            
+            <div class="absolute top-20 right-10 bg-black/40 backdrop-blur-xl border border-white/10 p-6 rounded-2xl w-64 shadow-2xl animate-float-slow">
+                <div class="flex gap-2 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="space-y-2">
+                    <div class="h-2 bg-gray-700 rounded w-3/4"></div>
+                    <div class="h-2 bg-gray-700 rounded w-1/2"></div>
+                    <div class="h-2 bg-[#00f3ff]/50 rounded w-full"></div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-20 left-10 bg-black/40 backdrop-blur-xl border border-white/10 p-6 rounded-2xl w-56 shadow-2xl animate-float-slow" style="animation-delay: 2s;">
+                <div class="flex items-center gap-4 mb-2">
+                    <div class="w-10 h-10 rounded-full bg-[#00f3ff]/20 flex items-center justify-center text-[#00f3ff]">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400">Performance</div>
+                        <div class="text-xl font-bold text-white">99.9%</div>
+                    </div>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" 
+                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 object-cover rounded-full border-4 border-white/5 shadow-[0_0_100px_rgba(0,243,255,0.2)] animate-spin-slow-reverse" 
+                 alt="Abstract 3D">
+        </div>
+
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Elements IDs
+        const ids = ['hero-badge', 'hero-title', 'hero-desc', 'hero-btns', 'hero-stack', 'hero-visual'];
+        
+        // Small delay to ensure page is painted
+        setTimeout(() => {
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    // Remove hidden classes to trigger transition
+                    el.classList.remove('opacity-0', 'translate-y-10', 'translate-x-10');
+                }
+            });
+        }, 100);
+    });
+
+    // Spotlight Logic
+    const heroSection = document.querySelector('section');
+    const spotlight = document.getElementById('hero-spotlight');
+
+    if(heroSection && spotlight) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = heroSection.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            spotlight.style.setProperty('--x', `${x}px`);
+            spotlight.style.setProperty('--y', `${y}px`);
+        });
+    }
+</script>
+
+<style>
+    /* Gradient Animation */
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .animate-gradient { background-size: 300%; animation: gradient 8s ease infinite; }
+    .bg-300\% { background-size: 300% 300%; }
+
+    /* Float Animation */
+    @keyframes float-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+    /* Spin Animation */
+    @keyframes spin-slow-reverse {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+    .animate-spin-slow-reverse { animation: spin-slow-reverse 60s linear infinite; }
+</style>

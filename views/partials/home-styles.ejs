@@ -1,0 +1,60 @@
+<style>
+    /* 1. SCROLL & TOUCH FIX (Ye atakne wali dikkat hatayega) */
+    html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background-color: #050505;
+        /* Ye mobile scroll ko smooth aur fast banata hai */
+        touch-action: pan-y; 
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Scrollbar gayab */
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
+    html { scrollbar-width: none; }
+
+    /* 2. NEON GLASS CARD (Wapas aa gaya, lekin optimized) */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px); /* Blur wapas aa gaya */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        /* Ye line lag (atakna) khatam karegi */
+        will-change: transform; 
+    }
+    .glass-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+        transform: translateX(-100%);
+        transition: 0.5s;
+    }
+    .glass-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: #00f3ff;
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
+    }
+    .glass-card:hover::before { transform: translateX(100%); }
+    .glass-card:hover .card-icon { color: #00f3ff; transform: scale(1.1); filter: drop-shadow(0 0 5px #00f3ff); }
+
+    /* 3. PROCESS CARD (Simple Style) */
+    .process-card:hover .process-icon { transform: scale(1.1) rotate(5deg); color: #00f3ff; }
+    .process-card:hover { border-color: #00f3ff; background: rgba(255, 255, 255, 0.08); transform: translateY(-5px); }
+
+    /* 4. ANIMATIONS (GPU Accelerated) */
+    @keyframes scroll { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
+    .run-scroll { display: flex; gap: 2rem; width: max-content; animation: scroll 20s linear infinite; will-change: transform; }
+    .strip-color { background-color: #00f3ff !important; color: black !important; }
+    
+    .gsap-reveal { opacity: 0; transform: translateY(40px); }
+
+    /* 5. SLIDER FADE */
+    .t-slide { display: none; }
+    .t-slide.active { display: block; animation: fadeIn 0.8s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>

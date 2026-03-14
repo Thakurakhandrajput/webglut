@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Samples Showcase</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; background-color: #0a0a0a; overflow-x: hidden; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .snap-container {
+            scroll-snap-type: x mandatory;
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        .snap-item {
+            scroll-snap-align: center;
+            flex-shrink: 0;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <section class="py-16 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[500px] bg-purple-900/20 blur-[100px] rounded-full pointer-events-none z-0"></div>
+
+        <div class="relative z-10">
+            <div class="text-center mb-10 px-6">
+                <span class="inline-block px-4 py-1 rounded-full border border-[#00f3ff]/30 bg-[#00f3ff]/10 text-[#00f3ff] text-[10px] font-bold uppercase tracking-widest mb-4">Our Expertise</span>
+                <h2 class="text-4xl md:text-6xl font-bold text-white leading-tight">Project <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f3ff] to-purple-500">Samples</span></h2>
+            </div>
+
+            <div class="relative w-full">
+                <div id="sample-scroll" class="snap-container no-scrollbar gap-5">
+                    
+                    <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
+                        <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
+                            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">Website</div>
+                        </div>
+                        <div class="px-1">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#00f3ff]">Pet Care Portal</h3>
+                            <p class="text-gray-400 text-xs md:text-sm">Modern web platform for pet services.</p>
+                        </div>
+                    </a>
+
+                    <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
+                        <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">Fitness UI</div>
+                        </div>
+                        <div class="px-1">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#00f3ff]">Gym & Fitness Hub</h3>
+                            <p class="text-gray-400 text-xs md:text-sm">Dynamic dashboard for member management.</p>
+                        </div>
+                    </a>
+
+                    <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
+                        <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">E-Com</div>
+                        </div>
+                        <div class="px-1">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#00f3ff]">Digital Storefront</h3>
+                            <p class="text-gray-400 text-xs md:text-sm">Seamless shopping experience.</p>
+                        </div>
+                    </a>
+
+                    <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
+                        <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">NFC Card</div>
+                        </div>
+                        <div class="px-1">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#00f3ff]">Smart Business Card</h3>
+                            <p class="text-gray-400 text-xs md:text-sm">NFC-enabled profile sharing.</p>
+                        </div>
+                    </a>
+
+                    <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
+                        <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">Mobile App</div>
+                        </div>
+                        <div class="px-1">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#00f3ff]">App Innovation</h3>
+                            <p class="text-gray-400 text-xs md:text-sm">Tailored mobile app experience.</p>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="mt-8 text-center px-6">
+                <a href="/samples" class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-[#00f3ff]/10 hover:border-[#00f3ff]/50 transition-all font-bold group">
+                    Explore All Capabilities
+                    <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const slider = document.getElementById('sample-scroll');
+        function autoScroll() {
+            const cardWidth = slider.querySelector('.snap-item').offsetWidth + 20; 
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
+            if (slider.scrollLeft >= maxScroll - 5) {
+                slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            }
+        }
+        let scrollInterval = setInterval(autoScroll, 5000);
+        slider.addEventListener('touchstart', () => clearInterval(scrollInterval), { passive: true });
+    </script>
+</body>
+</html>

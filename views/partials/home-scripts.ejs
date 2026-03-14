@@ -1,0 +1,98 @@
+<script>
+    // 1. 3D PARTICLES (OPTIMIZED: Count reduced to 600 from 2000)
+    // Isse visuals wahi rahenge par mobile hang nahi karega
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const container = document.getElementById('canvas-container');
+    if (container) container.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BufferGeometry();
+    const count = 600;
+    const positions = new Float32Array(count * 3);
+
+    for (let i = 0; i < count * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 20;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.03,
+        color: 0x00f3ff,
+        transparent: true,
+        opacity: 0.6
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    camera.position.z = 5;
+
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX / window.innerWidth - 0.5;
+        mouseY = e.clientY / window.innerHeight - 0.5;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.001;
+        particles.rotation.x += mouseX * 0.02;
+        particles.rotation.y += mouseY * 0.02;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // 2. SCROLL REVEAL (GSAP)
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.gsap-reveal').forEach(function (elem) {
+        gsap.to(elem, {
+            scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+                toggleActions: "play none none none"
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    // 3. COUNTER SCRIPT (Lag Free)
+    const counters = document.querySelectorAll('.counter');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const jump = Math.ceil(target / 40);
+
+                const timer = setInterval(() => {
+                    count += jump;
+                    if (count >= target) {
+                        counter.innerText = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.innerText = count;
+                    }
+                }, 30);
+
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    counters.forEach(counter => observer.observe(counter));
+</script>
