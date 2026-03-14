@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title><%= typeof title != 'undefined' ? title : 'Webglut' %> | Premium Digital Agency</title>
+
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        /* GLOBAL STYLES */
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'General Sans', sans-serif;
+            overflow-x: hidden;
+            cursor: none; /* Desktop Only */
+        }
+        @media (max-width: 1024px) {
+            body { cursor: auto; }
+        }
+
+        h1, h2, h3, .font-display {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #050505; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .loader-content { text-align: center; }
+        .loading-bar {
+            width: 200px; height: 2px; background: #333;
+            margin-top: 20px; border-radius: 4px; overflow: hidden;
+        }
+        .loading-progress {
+            width: 0%; height: 100%; background: #00f3ff;
+            animation: load 1.5s ease-in-out forwards;
+        }
+        @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* MOBILE MENU */
+        #mobile-menu { transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1); }
+        .menu-open { transform: translateY(0%); }
+        .menu-closed { transform: translateY(-100%); }
+
+        /* HEADER BLUR */
+        nav {
+            mix-blend-mode: difference;
+            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-[#050505] text-white selection:bg-[#00f3ff] selection:text-black">
+
+    <div id="scrollPath" style="position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: rgba(255,255,255,0.05); z-index: 99999;">
+        <div id="progressBar" style="height: 100%; background: #00f3ff; width: 0%; box-shadow: 0 0 10px #00f3ff; transition: width 0.1s;"></div>
+    </div>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="text-4xl font-display font-bold text-white tracking-widest">
+                WEB<span class="text-[#00f3ff]">GLUT</span>
+            </h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+            
+            <a href="/" class="z-50 relative group">
+                <div class="text-2xl font-display font-bold tracking-wider text-white group-hover:text-[#00f3ff] transition duration-300">
+                    WEB<span class="text-cyan-500">GLUT</span>.
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-10">
+                <a href="/" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-[#00f3ff] transition-colors">Home</a>
+                <a href="/services" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-[#00f3ff] transition-colors">Services</a>
+                <a href="/samples" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-[#00f3ff] transition-colors">Samples</a>
+                <a href="/portfolio" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-[#00f3ff] transition-colors">Projects</a>
+                
+                <a href="/cost-estimator" class="text-xs font-bold uppercase tracking-widest text-[#00f3ff] hover:text-white transition-colors">
+                    <i class="fas fa-calculator mr-1"></i> Cost Calc
+                </a>
+
+                <a href="/contact" class="px-6 py-2.5 border border-white/20 rounded-full text-xs font-bold uppercase text-white hover:bg-[#00f3ff] hover:border-[#00f3ff] hover:text-black transition-all duration-300 shadow-[0_0_10px_rgba(0,243,255,0.1)] hover:shadow-[0_0_20px_rgba(0,243,255,0.4)]">
+                    Start Project
+                </a>
+            </div>
+
+            <button class="md:hidden z-50 text-2xl text-white focus:outline-none hover:text-[#00f3ff] transition" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-black menu-closed flex flex-col justify-center items-center">
+        
+        <button class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white transition" onclick="toggleMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="flex flex-col gap-6 text-center">
+            <a href="/" class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-[#00f3ff] transition duration-300" onclick="toggleMenu()">Home</a>
+            <a href="/services" class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-[#00f3ff] transition duration-300" onclick="toggleMenu()">Services</a>
+            <a href="/samples" class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-[#00f3ff] transition duration-300" onclick="toggleMenu()">Samples</a>
+            <a href="/portfolio" class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-[#00f3ff] transition duration-300" onclick="toggleMenu()">Projects</a>
+            
+            <a href="/cost-estimator" class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-[#00f3ff] transition duration-300" onclick="toggleMenu()">
+                Calculator
+            </a>
+
+            <a href="/contact" class="text-4xl md:text-5xl font-display font-bold text-[#00f3ff] mt-4" onclick="toggleMenu()">Contact</a>
+        </div>
+
+        <div class="absolute bottom-12 flex gap-8 text-gray-500">
+            <a href="#" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="#" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-linkedin-in text-xl"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // PRELOADER
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const isSuccessPage = window.location.pathname === '/success';
+            if (isSuccessPage) {
+                preloader.style.display = 'none';
+            } else {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => { preloader.style.display = 'none'; }, 500);
+                }, 1000); 
+            }
+        });
+
+        // MENU TOGGLE
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const nav = document.querySelector('nav');
+            menu.classList.toggle('menu-closed');
+            menu.classList.toggle('menu-open');
+            if (menu.classList.contains('menu-open')) {
+                nav.style.mixBlendMode = 'normal';
+            } else {
+                nav.style.mixBlendMode = 'difference';
+            }
+        }
+
+        // SCROLL PROGRESS
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById("progressBar");
+            if (progressBar) progressBar.style.width = scrolled + "%";
+        };
+    </script>
