@@ -1,501 +1,353 @@
 <%- include('../partials/header') %>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <style>
     /* --- ULTIMATE CONFIGURATOR CSS --- */
-    
     .config-section {
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        padding: 30px;
-        margin-bottom: 30px;
-        transition: 0.3s;
+        border-radius: 16px; padding: 30px; margin-bottom: 30px; transition: 0.3s;
     }
-    .config-section:hover {
-        border-color: rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.03);
-    }
+    .config-section:hover { border-color: rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.03); }
 
     /* Cards Selection (Radio) */
     .selection-card {
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 12px;
-        padding: 20px;
-        transition: all 0.2s;
-        height: 100%;
-        position: relative;
-        overflow: hidden;
+        cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 0, 0, 0.3);
+        border-radius: 12px; padding: 20px; transition: all 0.2s; height: 100%; position: relative; overflow: hidden;
     }
-    .selection-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(0, 243, 255, 0.3);
-    }
-    
-    /* Checked State (Radio) */
-    input:checked + .selection-card {
-        background: rgba(0, 243, 255, 0.05);
-        border-color: #00f3ff;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
-    }
-    input:checked + .selection-card::after {
-        content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-        position: absolute; top: 10px; right: 10px; color: #00f3ff;
-    }
+    .selection-card:hover { transform: translateY(-3px); border-color: rgba(0, 243, 255, 0.3); }
+    input:checked + .selection-card { background: rgba(0, 243, 255, 0.05); border-color: #00f3ff; box-shadow: 0 0 15px rgba(0, 243, 255, 0.1); }
+    input:checked + .selection-card::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: 10px; right: 10px; color: #00f3ff; }
 
-    /* --- NEW PREMIUM FEATURE MODULES (Checkbox) --- */
+    /* Features (Checkbox) */
     .feature-module {
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.01);
-        border-radius: 10px;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        transition: all 0.3s ease;
+        cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.01);
+        border-radius: 10px; padding: 15px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease;
     }
-    .feature-module:hover {
-        background: rgba(255, 255, 255, 0.05);
-    }
-    
-    /* Checked State (Checkbox) */
-    input:checked + .feature-module {
-        background: linear-gradient(90deg, rgba(0, 243, 255, 0.1), transparent);
-        border-color: #00f3ff;
-        box-shadow: 0 0 10px rgba(0, 243, 255, 0.1) inset;
-    }
-    input:checked + .feature-module i {
-        color: #00f3ff;
-        text-shadow: 0 0 10px #00f3ff;
-    }
-    input:checked + .feature-module .check-icon {
-        opacity: 1; transform: scale(1);
-    }
-
-    /* Custom Checkbox Hidden */
+    input:checked + .feature-module { background: linear-gradient(90deg, rgba(0, 243, 255, 0.1), transparent); border-color: #00f3ff; }
+    input:checked + .feature-module i { color: #00f3ff; text-shadow: 0 0 10px #00f3ff; }
     .hidden-input { display: none; }
 
     /* Sticky Sidebar */
     .receipt-panel {
-        background: #0a0a0a;
-        border: 1px solid rgba(0, 243, 255, 0.2);
-        border-radius: 20px;
-        box-shadow: 0 0 40px rgba(0,0,0,0.8);
+        background: #0a0a0a; border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 20px;
+        box-shadow: 0 0 40px rgba(0,0,0,0.8); position: sticky; top: 100px; padding: 30px;
     }
+
+    /* Coupon CSS */
+    .coupon-box { margin-top: 20px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 15px; }
+    .coupon-input-group { position: relative; display: flex; gap: 5px; }
+    .coupon-input { width: 100%; background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; text-transform: uppercase; font-size: 12px; }
+    .coupon-btn { background: #00f3ff; color: black; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; }
+    .coupon-status { font-size: 11px; margin-top: 5px; display: block; font-weight: bold; }
+    .status-success { color: #00f3ff; } .status-error { color: #ff0055; }
+
+    /* PREMIUM POPUP CSS */
+    .popup-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+        z-index: 9999; display: none; justify-content: center; align-items: center;
+        opacity: 0; transition: opacity 0.5s ease;
+    }
+    .popup-card {
+        background: linear-gradient(145deg, #0a0a0a, #000);
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.15);
+        padding: 40px; border-radius: 24px; text-align: center;
+        max-width: 450px; width: 90%; transform: scale(0.8); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative; overflow: hidden;
+    }
+    .popup-glow {
+        position: absolute; top: -50px; left: -50px; width: 100px; height: 100px;
+        background: #00f3ff; filter: blur(80px); opacity: 0.5;
+    }
+    .gift-icon {
+        font-size: 50px; color: #00f3ff; margin-bottom: 20px;
+        animation: float 3s ease-in-out infinite;
+        text-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+    }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    
+    .coupon-display {
+        background: rgba(255, 255, 255, 0.05); border: 2px dashed #00f3ff;
+        padding: 15px; border-radius: 12px; font-family: monospace; font-size: 24px;
+        color: #00f3ff; letter-spacing: 2px; margin: 20px 0; cursor: pointer; position: relative;
+    }
+    .close-popup { position: absolute; top: 15px; right: 20px; color: gray; font-size: 24px; cursor: pointer; transition: 0.3s; }
+    .close-popup:hover { color: white; }
 </style>
 
 <main class="min-h-screen bg-[#050505] pt-32 pb-20 relative font-sans">
+    
+    <div class="popup-overlay" id="offerPopup">
+        <div class="popup-card">
+            <div class="popup-glow"></div>
+            <i class="fas fa-times close-popup" onclick="closePopup()"></i>
+            <i class="fas fa-gift gift-icon"></i>
+            <h2 class="text-3xl font-bold text-white mb-2">Exclusive Offer!</h2>
+            <p class="text-gray-400 text-sm mb-6">Unlock a flat <span class="text-[#00f3ff] font-bold">20% DISCOUNT</span> on your first project.</p>
+            <div class="coupon-display" onclick="copyCode()">WEBGLUT20<span class="text-[10px] text-gray-500 block mt-2" id="copyText">Tap to Copy</span></div>
+            <button onclick="useCodeNow()" class="w-full bg-[#00f3ff] text-black font-bold py-3 rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all uppercase tracking-widest mt-2">Use Code Now</button>
+        </div>
+    </div>
 
     <div class="fixed top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
     <div class="fixed bottom-0 left-0 w-[600px] h-[600px] bg-[#00f3ff] opacity-[0.03] blur-[150px] rounded-full pointer-events-none"></div>
 
     <div class="container mx-auto px-4 relative z-10">
-        
         <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-2">
-                BUILD YOUR <span class="text-[#00f3ff]">AGENCY PACKAGE</span>
-            </h1>
-            <p class="text-gray-500 text-sm md:text-base max-w-xl mx-auto uppercase tracking-widest">
-                Configure your digital ecosystem
-            </p>
+            <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-2">BUILD YOUR <span class="text-[#00f3ff]">AGENCY PACKAGE</span></h1>
+            <p class="text-gray-500 text-sm md:text-base max-w-xl mx-auto uppercase tracking-widest">Configure your digital ecosystem</p>
         </div>
 
         <div class="grid lg:grid-cols-12 gap-8 max-w-[1400px] mx-auto">
-            
             <div class="lg:col-span-8">
-                
                 <form id="estimatorForm">
-
                     <div class="config-section">
                         <h3 class="text-xl text-white font-bold mb-6 flex items-center gap-3"><i class="fas fa-layer-group text-[#00f3ff]"></i> Platform</h3>
                         <div class="grid md:grid-cols-3 gap-4">
-                            <label>
-                                <input type="radio" name="platform" value="15000" class="hidden-input" checked onchange="calculate()">
-                                <div class="selection-card" data-name="Website Only">
-                                    <i class="fas fa-globe text-3xl text-gray-500 mb-3"></i>
-                                    <h4 class="font-bold text-white">Website Only</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Starting ₹15k</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="platform" value="45000" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card" data-name="Android App">
-                                    <i class="fab fa-android text-3xl text-gray-500 mb-3"></i>
-                                    <h4 class="font-bold text-white">App (Android)</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Starting ₹45k</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="platform" value="75000" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card" data-name="Web + Mobile App">
-                                    <i class="fas fa-infinity text-3xl text-gray-500 mb-3"></i>
-                                    <h4 class="font-bold text-white">Web + App (Hybrid)</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Starting ₹75k</p>
-                                </div>
-                            </label>
+                            <label><input type="radio" name="platform" value="1500" class="hidden-input" checked onchange="calculate()"><div class="selection-card" data-name="Website Only"><i class="fas fa-globe text-3xl text-gray-500 mb-3"></i><h4 class="font-bold text-white">Website Only</h4><p class="text-xs text-gray-500 mt-1">Starting ₹1.5k</p></div></label>
+                            <label><input type="radio" name="platform" value="4500" class="hidden-input" onchange="calculate()"><div class="selection-card" data-name="Android App"><i class="fab fa-android text-3xl text-gray-500 mb-3"></i><h4 class="font-bold text-white">App (Android)</h4><p class="text-xs text-gray-500 mt-1">Starting ₹4.5k</p></div></label>
+                            <label><input type="radio" name="platform" value="7500" class="hidden-input" onchange="calculate()"><div class="selection-card" data-name="Web + Mobile App"><i class="fas fa-infinity text-3xl text-gray-500 mb-3"></i><h4 class="font-bold text-white">Web + App</h4><p class="text-xs text-gray-500 mt-1">Starting ₹7.5k</p></div></label>
                         </div>
                     </div>
 
                     <div class="config-section">
                         <h3 class="text-xl text-white font-bold mb-6 flex items-center gap-3"><i class="fas fa-project-diagram text-[#00f3ff]"></i> Project Nature</h3>
                         <div class="grid md:grid-cols-2 gap-4">
-                            <label>
-                                <input type="radio" name="type" value="0" class="hidden-input" checked onchange="calculate()">
-                                <div class="selection-card" data-name="Info / Portfolio">
-                                    <h4 class="font-bold text-white">Informational / Portfolio</h4>
-                                    <p class="text-xs text-gray-500">Business details, Gallery, Contact form.</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="type" value="20000" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card" data-name="E-Commerce Store">
-                                    <h4 class="font-bold text-white">E-Commerce Store</h4>
-                                    <p class="text-xs text-gray-500">Products, Cart, Checkout, Orders.</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="type" value="35000" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card" data-name="Social / Community">
-                                    <h4 class="font-bold text-white">Social / Community</h4>
-                                    <p class="text-xs text-gray-500">User Profiles, Chat, Feeds.</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="type" value="50000" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card" data-name="SaaS / Custom Web App">
-                                    <h4 class="font-bold text-white">SaaS / Custom Web App</h4>
-                                    <p class="text-xs text-gray-500">Complex Logic, Dashboard, Subscription.</p>
-                                </div>
-                            </label>
+                            <label><input type="radio" name="type" value="0" class="hidden-input" checked onchange="calculate()"><div class="selection-card" data-name="Info / Portfolio"><h4 class="font-bold text-white">Info / Portfolio</h4><p class="text-xs text-gray-500">Business details, Gallery.</p></div></label>
+                            <label><input type="radio" name="type" value="2000" class="hidden-input" onchange="calculate()"><div class="selection-card" data-name="E-Commerce Store"><h4 class="font-bold text-white">E-Commerce</h4><p class="text-xs text-gray-500">Products, Cart, Checkout.</p></div></label>
+                            <label><input type="radio" name="type" value="3500" class="hidden-input" onchange="calculate()"><div class="selection-card" data-name="Social / Community"><h4 class="font-bold text-white">Social / Chat</h4><p class="text-xs text-gray-500">Profiles, Chat, Feeds.</p></div></label>
+                            <label><input type="radio" name="type" value="5000" class="hidden-input" onchange="calculate()"><div class="selection-card" data-name="SaaS / Web App"><h4 class="font-bold text-white">SaaS / Web App</h4><p class="text-xs text-gray-500">Complex Logic, Dashboards.</p></div></label>
                         </div>
                     </div>
 
                     <div class="config-section">
                         <h3 class="text-xl text-white font-bold mb-6 flex items-center gap-3"><i class="fas fa-paint-brush text-[#00f3ff]"></i> Design Tier</h3>
                         <div class="grid md:grid-cols-3 gap-4">
-                            <label>
-                                <input type="radio" name="design" value="1" class="hidden-input" checked onchange="calculate()">
-                                <div class="selection-card text-center" data-name="Basic Pro">
-                                    <h4 class="font-bold text-white">Basic Pro</h4>
-                                    <p class="text-xs text-gray-500">Clean & Standard</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="design" value="1.5" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card text-center" data-name="Custom Brand">
-                                    <h4 class="font-bold text-white">Custom Brand</h4>
-                                    <p class="text-xs text-gray-500">Unique UI/UX (+50%)</p>
-                                </div>
-                            </label>
-                            <label>
-                                <input type="radio" name="design" value="2.5" class="hidden-input" onchange="calculate()">
-                                <div class="selection-card text-center" data-name="Award Winning">
-                                    <h4 class="font-bold text-white">Award Winning</h4>
-                                    <p class="text-xs text-gray-500">3D/Animated (+150%)</p>
-                                </div>
-                            </label>
+                            <label><input type="radio" name="design" value="1" class="hidden-input" checked onchange="calculate()"><div class="selection-card text-center" data-name="Basic Pro"><h4 class="font-bold text-white">Basic Pro</h4><p class="text-xs text-gray-500">Clean & Standard</p></div></label>
+                            <label><input type="radio" name="design" value="1.5" class="hidden-input" onchange="calculate()"><div class="selection-card text-center" data-name="Custom Brand"><h4 class="font-bold text-white">Custom Brand</h4><p class="text-xs text-gray-500">Unique UI/UX (+50%)</p></div></label>
+                            <label><input type="radio" name="design" value="2.5" class="hidden-input" onchange="calculate()"><div class="selection-card text-center" data-name="Award Winning"><h4 class="font-bold text-white">Award Winning</h4><p class="text-xs text-gray-500">3D/Animated (+150%)</p></div></label>
                         </div>
                     </div>
 
                     <div class="config-section">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl text-white font-bold"><i class="fas fa-copy text-[#00f3ff]"></i> Scale (Pages/Screens)</h3>
-                            <span class="text-[#00f3ff] font-bold text-2xl"><span id="pageVal">5</span></span>
-                        </div>
+                        <div class="flex justify-between items-center mb-4"><h3 class="text-xl text-white font-bold"><i class="fas fa-copy text-[#00f3ff]"></i> Scale (Pages)</h3><span class="text-[#00f3ff] font-bold text-2xl"><span id="pageVal">5</span></span></div>
                         <input type="range" min="1" max="50" value="5" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#00f3ff]" id="pageRange" oninput="document.getElementById('pageVal').innerText=this.value; calculate()">
-                        <p class="text-xs text-gray-500 mt-2">First 5 pages included. Extra pages charged @ ₹1000/page.</p>
+                        <p class="text-xs text-gray-500 mt-2">First 5 pages included. Extra pages @ ₹100/page.</p>
                     </div>
 
                     <div class="config-section">
-                        <h3 class="text-xl text-white font-bold mb-6 flex items-center gap-3"><i class="fas fa-microchip text-[#00f3ff]"></i> Advanced Tech</h3>
+                        <h3 class="text-xl text-white font-bold mb-6 flex items-center gap-3"><i class="fas fa-microchip text-[#00f3ff]"></i> Features</h3>
                         <div class="grid md:grid-cols-2 gap-4">
-                            
-                            <label>
-                                <input type="checkbox" value="8000" class="hidden-input feature-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Login System">
-                                    <i class="fas fa-user-lock text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">User Login System</h5>
-                                        <span class="text-[10px] text-gray-500">₹8,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="6000" class="hidden-input feature-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Payment Gateway">
-                                    <i class="fas fa-credit-card text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Payment Gateway</h5>
-                                        <span class="text-[10px] text-gray-500">₹6,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="12000" class="hidden-input feature-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Admin Dashboard">
-                                    <i class="fas fa-chart-line text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Admin Dashboard</h5>
-                                        <span class="text-[10px] text-gray-500">₹12,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="4000" class="hidden-input feature-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Dark Mode">
-                                    <i class="fas fa-moon text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Dark/Light Mode</h5>
-                                        <span class="text-[10px] text-gray-500">₹4,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-                            
-                            <label>
-                                <input type="checkbox" value="8000" class="hidden-input feature-check" onchange="calculate()">
-                                <div class="feature-module" data-name="AI Chatbot">
-                                    <i class="fas fa-robot text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">AI Chatbot</h5>
-                                        <span class="text-[10px] text-gray-500">₹8,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="5000" class="hidden-input feature-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Multi-Language">
-                                    <i class="fas fa-language text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Multi-Language</h5>
-                                        <span class="text-[10px] text-gray-500">₹5,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
+                            <label><input type="checkbox" value="800" class="feature-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="Login System"><i class="fas fa-user-lock text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">Login System</h5><span class="text-[10px] text-gray-500">₹800</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
+                            <label><input type="checkbox" value="600" class="feature-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="Payment Gateway"><i class="fas fa-credit-card text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">Payment Gateway</h5><span class="text-[10px] text-gray-500">₹600</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
+                            <label><input type="checkbox" value="1200" class="feature-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="Admin Dashboard"><i class="fas fa-chart-line text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">Admin Dashboard</h5><span class="text-[10px] text-gray-500">₹1,200</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
+                            <label><input type="checkbox" value="800" class="feature-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="AI Chatbot"><i class="fas fa-robot text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">AI Chatbot</h5><span class="text-[10px] text-gray-500">₹800</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
                         </div>
                     </div>
 
                     <div class="config-section">
                         <h3 class="text-xl text-white font-bold mb-6 flex items-center gap-3"><i class="fas fa-briefcase text-[#00f3ff]"></i> Agency Services</h3>
                         <div class="grid md:grid-cols-2 gap-4">
-                            
-                            <label>
-                                <input type="checkbox" value="5000" class="hidden-input service-check" onchange="calculate()">
-                                <div class="feature-module" data-name="SEO Setup">
-                                    <i class="fas fa-search text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">SEO Setup</h5>
-                                        <span class="text-[10px] text-gray-500">₹5,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="3000" class="hidden-input service-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Logo Design">
-                                    <i class="fas fa-pen-nib text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Logo Design</h5>
-                                        <span class="text-[10px] text-gray-500">₹3,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="5000" class="hidden-input service-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Content Writing">
-                                    <i class="fas fa-paragraph text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Content Writing</h5>
-                                        <span class="text-[10px] text-gray-500">₹5,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
-                            <label>
-                                <input type="checkbox" value="4000" class="hidden-input service-check" onchange="calculate()">
-                                <div class="feature-module" data-name="Hosting & Domain">
-                                    <i class="fas fa-server text-xl text-gray-500"></i>
-                                    <div class="flex-1">
-                                        <h5 class="text-white font-bold text-sm">Hosting & Domain (1 Yr)</h5>
-                                        <span class="text-[10px] text-gray-500">₹4,000</span>
-                                    </div>
-                                    <i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i>
-                                </div>
-                            </label>
-
+                            <label><input type="checkbox" value="500" class="service-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="SEO Setup"><i class="fas fa-search text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">SEO Setup</h5><span class="text-[10px] text-gray-500">₹500</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
+                            <label><input type="checkbox" value="300" class="service-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="Logo Design"><i class="fas fa-pen-nib text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">Logo Design</h5><span class="text-[10px] text-gray-500">₹300</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
+                            <label><input type="checkbox" value="400" class="service-check hidden-input" onchange="calculate()"><div class="feature-module" data-name="Hosting & Domain"><i class="fas fa-server text-xl text-gray-500"></i><div class="flex-1"><h5 class="text-white font-bold text-sm">Hosting & Domain</h5><span class="text-[10px] text-gray-500">₹400</span></div><i class="fas fa-check-circle check-icon text-[#00f3ff] opacity-0 transform scale-50 transition-all"></i></div></label>
                         </div>
                     </div>
-
                 </form>
             </div>
 
             <div class="lg:col-span-4">
-                <div class="sticky top-32 receipt-panel p-8">
-                    
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-white/10">
-                        <h2 class="text-xl font-bold text-white uppercase tracking-wider">Estimate</h2>
-                        <span class="text-xs text-gray-500 font-mono">ID: <span id="quoteId">WG-001</span></span>
+                <div class="receipt-panel">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-4">Estimated Cost</h3>
+                    <div class="space-y-4 mb-8 text-sm text-gray-300" id="receipt-details"></div>
+
+                    <div class="coupon-box">
+                        <label class="text-[10px] text-gray-500 uppercase font-bold block mb-1">Have a Coupon?</label>
+                        <div class="coupon-input-group">
+                            <input type="text" id="couponCode" class="coupon-input" placeholder="Enter Code">
+                            <button class="coupon-btn" onclick="applyCoupon()">APPLY</button>
+                        </div>
+                        <span id="couponStatus" class="coupon-status"></span>
                     </div>
 
-                    <div class="space-y-3 mb-8 text-sm">
-                        <div class="flex justify-between text-gray-400">
-                            <span>Base Platform</span>
-                            <span class="text-white font-mono">₹<span id="d_platform">0</span></span>
-                        </div>
-                        <div class="flex justify-between text-gray-400">
-                            <span>Project Type</span>
-                            <span class="text-white font-mono">+ ₹<span id="d_type">0</span></span>
-                        </div>
-                        <div class="flex justify-between text-gray-400">
-                            <span>Pages Cost (<span id="d_pages_count">0</span>)</span>
-                            <span class="text-white font-mono">+ ₹<span id="d_pages_cost">0</span></span>
-                        </div>
-                        <div class="flex justify-between text-gray-400">
-                            <span>Features</span>
-                            <span class="text-white font-mono">+ ₹<span id="d_features">0</span></span>
-                        </div>
-                        <div class="flex justify-between text-gray-400">
-                            <span>Services</span>
-                            <span class="text-white font-mono">+ ₹<span id="d_services">0</span></span>
-                        </div>
-                        <div class="flex justify-between text-[#00f3ff]">
-                            <span>Design Multiplier</span>
-                            <span class="font-mono">x <span id="d_design">1</span></span>
-                        </div>
+                    <div class="flex justify-between items-center text-xl font-bold text-white pt-6 border-t border-gray-800 mt-4">
+                        <span>TOTAL:</span>
+                        <span class="text-[#00f3ff]" id="totalPrice">₹1,500</span>
                     </div>
 
-                    <div id="discountRow" class="hidden flex justify-between text-green-400 text-sm mb-4 pb-4 border-b border-white/10">
-                        <span>Agency Discount (10%)</span>
-                        <span class="font-mono">- ₹<span id="d_discount">0</span></span>
-                    </div>
-
-                    <div class="bg-white/5 rounded-xl p-4 mb-6 border border-white/10">
-                        <span class="block text-xs uppercase text-gray-500 mb-1">Estimated Total</span>
-                        <span class="block text-4xl font-display font-bold text-white">₹<span id="d_total">0</span></span>
-                    </div>
-
-                    <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] text-black font-bold py-4 rounded-xl hover:scale-105 transition shadow-[0_0_20px_rgba(37,211,102,0.3)] flex items-center justify-center gap-2 mb-4">
-                        <i class="fab fa-whatsapp text-xl"></i> Book on WhatsApp
+                    <button onclick="payNow()" class="w-full mt-8 bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-all uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
+                        <i class="fas fa-credit-card text-xl"></i> Pay Token (₹100)
                     </button>
-                    <p class="text-[10px] text-gray-600 text-center leading-relaxed">
-                        *This estimate is generated by Webglut AI. Final pricing is subject to detailed analysis.
-                    </p>
 
+                    <button onclick="sendToWhatsapp()" class="w-full bg-[#00f3ff] text-black font-bold py-4 rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp text-xl"></i> Book via WhatsApp
+                    </button>
+
+                    <p class="text-[10px] text-gray-600 text-center mt-4 italic">*Estimates are subject to final analysis.</p>
                 </div>
             </div>
-
         </div>
     </div>
 </main>
 
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
+
 <script>
+    // --- GLOBAL VARIABLES ---
+    let currentDiscount = 0;
+    let appliedCouponCode = "";
+
+    // --- INITIALIZATION ---
+    document.addEventListener("DOMContentLoaded", () => { 
+        calculate(); 
+        setTimeout(() => {
+            const popup = document.getElementById('offerPopup');
+            if(popup) {
+                popup.style.display = 'flex';
+                setTimeout(() => { popup.style.opacity = '1'; popup.querySelector('.popup-card').style.transform = 'scale(1)'; }, 10);
+            }
+        }, 1500);
+    });
+
+    // --- POPUP FUNCTIONS ---
+    function closePopup() {
+        const popup = document.getElementById('offerPopup');
+        popup.style.opacity = '0';
+        popup.querySelector('.popup-card').style.transform = 'scale(0.8)';
+        setTimeout(() => { popup.style.display = 'none'; }, 500);
+    }
+
+    function copyCode() {
+        navigator.clipboard.writeText("WEBGLUT20");
+        const copyText = document.getElementById('copyText');
+        copyText.innerText = "✅ Copied!"; copyText.style.color = "#00f3ff";
+    }
+
+    function useCodeNow() {
+        const couponInput = document.getElementById('couponCode');
+        if(couponInput) couponInput.value = "WEBGLUT20";
+        closePopup();
+        applyCoupon();
+        document.querySelector('.receipt-panel').scrollIntoView({behavior: 'smooth'});
+    }
+
+    // --- COUPON LOGIC ---
+    const validCoupons = { "WEB20": 20, "WEBGLUT20": 20, "LAUNCH50": 50, "NEWUSER10": 10 };
+
+    function applyCoupon() {
+        const input = document.getElementById('couponCode');
+        const status = document.getElementById('couponStatus');
+        const code = input.value.toUpperCase().trim();
+
+        if (validCoupons.hasOwnProperty(code)) {
+            currentDiscount = validCoupons[code];
+            appliedCouponCode = code;
+            status.innerHTML = `✅ ${code} Applied! (${currentDiscount}% Off)`;
+            status.className = "coupon-status status-success";
+            calculate();
+        } else {
+            currentDiscount = 0; appliedCouponCode = "";
+            status.innerHTML = "❌ Invalid Code"; status.className = "coupon-status status-error";
+            calculate();
+        }
+    }
+
+    // --- CALCULATOR LOGIC ---
     function calculate() {
-        // ... (Same Calculation Logic as before) ...
         let platform = parseInt(document.querySelector('input[name="platform"]:checked').value);
         let type = parseInt(document.querySelector('input[name="type"]:checked').value);
         let design = parseFloat(document.querySelector('input[name="design"]:checked').value);
-        let pages = parseInt(document.getElementById('pageRange').value);
-        let pagesCost = (pages > 5) ? (pages - 5) * 1000 : 0;
+        let pagesInput = document.getElementById('pageRange');
+        let pages = Math.max(0, parseInt(pagesInput.value) - 5) * 100;
         
-        let features = 0;
-        document.querySelectorAll('.feature-check:checked').forEach(el => features += parseInt(el.value));
+        let tech = 0; document.querySelectorAll('.feature-check:checked').forEach(c => tech += parseInt(c.value));
+        let service = 0; document.querySelectorAll('.service-check:checked').forEach(c => service += parseInt(c.value));
 
-        let services = 0;
-        document.querySelectorAll('.service-check:checked').forEach(el => services += parseInt(el.value));
+        let subTotal = (platform + type + pages + tech) * design;
+        let totalBeforeDiscount = subTotal + service;
+        let discountAmount = (totalBeforeDiscount * currentDiscount) / 100;
+        let finalTotal = totalBeforeDiscount - discountAmount;
+
+        document.getElementById('totalPrice').innerText = "₹" + Math.floor(finalTotal).toLocaleString();
         
-        let subTotal = (platform + type + pagesCost + features) * design;
-        let total = subTotal + services;
-
-        let discount = 0;
-        if(total > 100000) {
-            discount = total * 0.10;
-            total = total - discount;
-            document.getElementById('discountRow').classList.remove('hidden');
-        } else {
-            document.getElementById('discountRow').classList.add('hidden');
-        }
-
-        document.getElementById('d_platform').innerText = platform.toLocaleString();
-        document.getElementById('d_type').innerText = type.toLocaleString();
-        document.getElementById('d_pages_count').innerText = pages;
-        document.getElementById('d_pages_cost').innerText = pagesCost.toLocaleString();
-        document.getElementById('d_features').innerText = features.toLocaleString();
-        document.getElementById('d_services').innerText = services.toLocaleString();
-        document.getElementById('d_design').innerText = design;
-        document.getElementById('d_discount').innerText = Math.round(discount).toLocaleString();
-        document.getElementById('d_total').innerText = Math.round(total).toLocaleString('en-IN');
+        const receipt = document.getElementById('receipt-details');
+        receipt.innerHTML = `
+            <div class="flex justify-between"><span>Base Platform</span> <span>₹${platform}</span></div>
+            <div class="flex justify-between"><span>Project Type</span> <span>₹${type}</span></div>
+            ${pages > 0 ? `<div class="flex justify-between"><span>Extra Pages</span> <span>₹${pages}</span></div>` : ''}
+            ${tech > 0 ? `<div class="flex justify-between"><span>Tech Add-ons</span> <span>₹${tech}</span></div>` : ''}
+            <div class="flex justify-between text-[#00f3ff]"><span>Design Multiplier</span> <span>x${design}</span></div>
+            ${service > 0 ? `<div class="flex justify-between border-t border-gray-800 pt-2 mt-2"><span>Agency Services</span> <span>₹${service}</span></div>` : ''}
+            ${discountAmount > 0 ? `<div class="flex justify-between text-green-400 border-t border-gray-800 pt-2 mt-2 font-bold"><span>Coupon (${appliedCouponCode})</span> <span>-₹${Math.floor(discountAmount)}</span></div>` : ''}
+        `;
     }
 
-    // --- NEW DETAILED WHATSAPP LOGIC ---
-    function sendWhatsApp() {
-        // 1. Gather Data Text (Names, not just numbers)
-        let platformName = document.querySelector('input[name="platform"]:checked').nextElementSibling.dataset.name;
-        let typeName = document.querySelector('input[name="type"]:checked').nextElementSibling.dataset.name;
-        let designName = document.querySelector('input[name="design"]:checked').nextElementSibling.dataset.name;
-        let pagesCount = document.getElementById('pageRange').value;
-        let totalCost = document.getElementById('d_total').innerText;
-        let quoteID = document.getElementById('quoteId').innerText;
-
-        // 2. Gather Feature Lists
-        let featureList = [];
-        document.querySelectorAll('.feature-check:checked').forEach(el => {
-            featureList.push(el.nextElementSibling.dataset.name);
-        });
+    // --- LIVE PAYMENT FUNCTION ---
+    async function payNow() {
+        const amount = 100; // ₹100 Booking Amount
         
-        let serviceList = [];
-        document.querySelectorAll('.service-check:checked').forEach(el => {
-            serviceList.push(el.nextElementSibling.dataset.name);
-        });
+        try {
+            // 1. Create Order
+            const response = await fetch('/create-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: amount })
+            });
+            
+            // Check for Server Error
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Server Response:", errorText);
+                alert("Server Error! Status: " + response.status + "\n\n(Please check if you restarted the Node.js server in cPanel)");
+                return;
+            }
 
-        // 3. Format Message with Line Breaks (%0a) and Bold (*)
-        let msg = `🚀 *New Project Inquiry* (Webglut Estimator)%0a`;
-        msg += `---------------------------%0a`;
-        msg += `*Quote ID:* ${quoteID}%0a`;
-        msg += `*Platform:* ${platformName}%0a`;
-        msg += `*Type:* ${typeName}%0a`;
-        msg += `*Design Tier:* ${designName}%0a`;
-        msg += `*Scale:* ${pagesCount} Pages/Screens%0a`;
-        
-        if(featureList.length > 0) {
-            msg += `---------------------------%0a`;
-            msg += `*Features Selected:*%0a`;
-            featureList.forEach(f => msg += `✅ ${f}%0a`);
+            const order = await response.json();
+
+            // 2. Open Razorpay Options
+            const options = {
+                "key": "Rzp_live_S7JVPCfG8RM4xl", // 🔥 LIVE KEY ID 🔥
+                "amount": order.amount,
+                "currency": "INR",
+                "name": "Webglut Agency",
+                "description": "Project Token Booking",
+                "image": "/images/logo.png",
+                "order_id": order.id, 
+                "handler": function (response){
+                    alert("✅ Payment Successful! ID: " + response.razorpay_payment_id);
+                    // Send confirmation to WhatsApp
+                    sendToWhatsapp(response.razorpay_payment_id);
+                },
+                "prefill": {
+                    "name": "", // Optional
+                    "email": "",
+                    "contact": ""
+                },
+                "theme": { "color": "#00f3ff" }
+            };
+
+            const rzp1 = new Razorpay(options);
+            rzp1.open();
+        } catch (err) {
+            console.error("JS Error:", err);
+            alert("Unexpected Error: " + err.message);
         }
-
-        if(serviceList.length > 0) {
-            msg += `---------------------------%0a`;
-            msg += `*Services Selected:*%0a`;
-            serviceList.forEach(s => msg += `🛠 ${s}%0a`);
-        }
-
-        msg += `---------------------------%0a`;
-        msg += `💰 *Est. Budget:* ₹${totalCost}%0a`;
-        msg += `---------------------------%0a`;
-        msg += `I am interested in this configuration. Let's discuss.`;
-
-        // 4. Send
-        window.open(`https://wa.me/919115025412?text=${msg}`, '_blank');
     }
 
-    // Init
-    document.getElementById('quoteId').innerText = "WG-" + Math.floor(Math.random() * 9000 + 1000);
-    calculate();
+    // --- WHATSAPP SEND ---
+    function sendToWhatsapp(paymentId = null) {
+        let quoteId = "WG-" + Math.floor(1000 + Math.random() * 9000);
+        let total = document.getElementById('totalPrice').innerText;
+        
+        let msg = `🚀 *Webglut Project Inquiry*\n---------------------------\n*Quote ID:* ${quoteId}\n*Estimated Budget:* ${total}\n`;
+        if(appliedCouponCode) msg += `*Coupon:* ${appliedCouponCode} (${currentDiscount}% OFF)\n`;
+        if(paymentId) msg += `\n✅ *Token Paid:* ₹100\n*Payment ID:* ${paymentId}\n`;
+        
+        msg += `---------------------------\nI want to start this project.`;
+        window.open(`https://wa.me/919115025412?text=${encodeURIComponent(msg)}`, '_blank');
+    }
 </script>
-
-<%- include('../partials/footer') %>
