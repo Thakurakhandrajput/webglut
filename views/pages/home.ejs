@@ -1,21 +1,37 @@
+
 <%- include('../partials/header') %>
 <%- include('../partials/home-styles') %>
 
-<div id="canvas-container"
-     class="fixed inset-0 z-0 opacity-40 pointer-events-none"
-     style="touch-action:none"></div>
+<style>
+    html, body {
+    overflow-x: hidden; /* Sirf horizontal scroll band karega */
+    overflow-y: auto;   /* Vertical scroll chalu rakhega */
+}
 
-<main class="relative z-10 w-full overflow-x-hidden">
+    
+    /* Ensure body scroll is handled by our smooth scroller only */
+    body {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+<div id="canvas-container"
+     class="fixed inset-0 z-0 opacity-40 pointer-events-none"></div>
+
+<main class="relative z-10 w-full overflow-x-hidden min-h-screen">
+
 
     <%- include('../partials/home-hero') %>
     <%- include('../partials/home-about-stats') %>
     <%- include('../partials/home-services') %>
+    <%- include('../partials/founder-spotlight') %>  
+    <%- include('../partials/home-portfolio') %>
     <%- include('../partials/home-sample') %>
     <%- include('../partials/home-process') %>
     <%- include('../partials/home-testimonials') %>
     <%- include('../partials/home-calculator') %>
-
-    
 
 </main>
 
