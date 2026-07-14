@@ -1,4 +1,5 @@
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- ✅ PERFORMANCE FIX: Added 'defer' to stop render blocking -->
+<script src="https://cdn.tailwindcss.com" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -6,7 +7,6 @@
         display: none;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
-        /* Smooth fade effect */
     }
 
     .t-slide.active {
@@ -21,17 +21,19 @@
     }
 </style>
 
-<section class="py-24 container mx-auto px-6 gsap-reveal bg-black"> <div class="grid md:grid-cols-2 gap-12 items-center">
+<section class="py-24 container mx-auto px-6 gsap-reveal bg-black"> 
+    <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
             <h2 class="text-4xl font-display font-bold text-white mb-6">
                 Trusted by <br> Visionaries.
             </h2>
             <div class="flex gap-4">
-                <button id="prevBtn" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition cursor-pointer">
-                    <i class="fas fa-arrow-left"></i>
+                <!-- ✅ ACCESSIBILITY FIX: Added aria-label to buttons -->
+                <button id="prevBtn" aria-label="Previous Testimonial" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition cursor-pointer focus:outline-none focus:border-[#00f3ff]">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
                 </button>
-                <button id="nextBtn" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition cursor-pointer">
-                    <i class="fas fa-arrow-right"></i>
+                <button id="nextBtn" aria-label="Next Testimonial" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition cursor-pointer focus:outline-none focus:border-[#00f3ff]">
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -40,131 +42,132 @@
             
             <div class="t-slide active">
                 <div class="text-[#00f3ff] text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "Webglut transformed our gym's operation. The QR system they built saved us hours of manual work every day. Truly elite developers."
                 </p>
                 <div>
                     <div class="text-white font-bold">Rajesh Kumar</div>
-                    <div class="text-sm text-gray-500">Owner, Iron Pulse Gym</div>
+                    <!-- ✅ CONTRAST FIX: Changed text-gray-500 to text-gray-400 -->
+                    <div class="text-sm text-gray-400">Owner, Iron Pulse Gym</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-purple-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "Our sales increased by 200% after they redesigned our store. The 3D product view is a game changer for our customers."
                 </p>
                 <div>
                     <div class="text-white font-bold">Sarah Jenkins</div>
-                    <div class="text-sm text-gray-500">CEO, Luxe Fashion</div>
+                    <div class="text-sm text-gray-400">CEO, Luxe Fashion</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-green-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "The patient booking system is flawless. We handle 500+ appointments daily without a single server crash."
                 </p>
                 <div>
                     <div class="text-white font-bold">Dr. Anjali Mehta</div>
-                    <div class="text-sm text-gray-500">Founder, Mehta Clinics</div>
+                    <div class="text-sm text-gray-400">Founder, Mehta Clinics</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-[#00f3ff] text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "They built our MVP in record time. The code quality helped us secure Series A funding immediately."
                 </p>
                 <div>
                     <div class="text-white font-bold">Michael Chen</div>
-                    <div class="text-sm text-gray-500">CTO, NextGen AI</div>
+                    <div class="text-sm text-gray-400">CTO, NextGen AI</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-yellow-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "The 'Where is my bus' app is a hit. The live GPS tracking is accurate down to the meter. Outstanding work."
                 </p>
                 <div>
                     <div class="text-white font-bold">Vikram Singh</div>
-                    <div class="text-sm text-gray-500">Director, City Transit</div>
+                    <div class="text-sm text-gray-400">Director, City Transit</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-pink-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "The e-learning portal allows thousands of students to stream lectures simultaneously with zero lag. Incredible architecture."
                 </p>
                 <div>
                     <div class="text-white font-bold">Priya Sharma</div>
-                    <div class="text-sm text-gray-500">Dean, EduTech Institute</div>
+                    <div class="text-sm text-gray-400">Dean, EduTech Institute</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-blue-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "Automating our real estate listings saved our agents 4 hours daily. The CRM integration is seamless."
                 </p>
                 <div>
                     <div class="text-white font-bold">David Ross</div>
-                    <div class="text-sm text-gray-500">Manager, Skyline Properties</div>
+                    <div class="text-sm text-gray-400">Manager, Skyline Properties</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-orange-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "Our food delivery logistics are now 100% efficient. The driver routing algorithm Webglut created is pure genius."
                 </p>
                 <div>
                     <div class="text-white font-bold">Amit Patel</div>
-                    <div class="text-sm text-gray-500">COO, Zesty Eats</div>
+                    <div class="text-sm text-gray-400">COO, Zesty Eats</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-indigo-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "Security was our top concern for the fintech app. They delivered bank-grade encryption with a beautiful UI."
                 </p>
                 <div>
                     <div class="text-white font-bold">Jessica Lee</div>
-                    <div class="text-sm text-gray-500">Founder, SecurePay</div>
+                    <div class="text-sm text-gray-400">Founder, SecurePay</div>
                 </div>
             </div>
 
             <div class="t-slide">
                 <div class="text-red-500 text-2xl mb-4">
-                    <i class="fas fa-quote-left"></i>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p class="text-xl text-gray-300 italic mb-6">
                     "The customized dashboard gives us real-time insights into our manufacturing line. Highly recommended!"
                 </p>
                 <div>
                     <div class="text-white font-bold">Arjun Das</div>
-                    <div class="text-sm text-gray-500">Director, Das Steel Works</div>
+                    <div class="text-sm text-gray-400">Director, Das Steel Works</div>
                 </div>
             </div>
 
@@ -205,15 +208,19 @@
         }
 
         // Event Listeners for Buttons
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetTimer(); // Timer reset karein taaki click ke turant baad auto-scroll na ho
-        });
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetTimer();
+            });
+        }
 
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetTimer();
-        });
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetTimer();
+            });
+        }
 
         // Auto Scroll Function (5 Seconds)
         function startAutoScroll() {
