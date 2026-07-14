@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
+    <!-- ✅ SEO FIX: Powerful Meta Description Added -->
+    <meta name="description" content="Webglut is a premium digital agency offering world-class web development, UI/UX design, SEO, and digital growth solutions.">
+    
     <title><%= typeof title != 'undefined' ? title : 'Webglut' %> | Premium Digital Agency</title>
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
-
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- ✅ PERFORMANCE FIX: Added 'defer' attribute to stop render-blocking -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
     
     <link rel="stylesheet" href="/css/style.css">
 
@@ -85,7 +89,7 @@
     <nav class="fixed w-full top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-5 flex justify-between items-center">
             
-            <a href="/" class="z-50 relative group">
+            <a href="/" aria-label="Webglut Homepage" class="z-50 relative group">
                 <div class="text-2xl font-display font-bold tracking-wider text-white group-hover:text-[#00f3ff] transition duration-300">
                     WEB<span class="text-cyan-500">GLUT</span>.
                 </div>
@@ -106,7 +110,8 @@
                 </a>
             </div>
 
-            <button class="md:hidden z-50 text-2xl text-white focus:outline-none hover:text-[#00f3ff] transition" onclick="toggleMenu()">
+            <!-- ✅ ACCESSIBILITY FIX: Added aria-label to the hamburger menu button -->
+            <button aria-label="Open Mobile Menu" class="md:hidden z-50 text-2xl text-white focus:outline-none hover:text-[#00f3ff] transition" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -114,7 +119,8 @@
 
     <div id="mobile-menu" class="fixed inset-0 z-[100] bg-black menu-closed flex flex-col justify-center items-center">
         
-        <button class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white transition" onclick="toggleMenu()">
+        <!-- ✅ ACCESSIBILITY FIX: Added aria-label to the close button -->
+        <button aria-label="Close Mobile Menu" class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white transition" onclick="toggleMenu()">
             <i class="fas fa-times"></i>
         </button>
 
@@ -131,10 +137,11 @@
             <a href="/contact" class="text-4xl md:text-5xl font-display font-bold text-[#00f3ff] mt-4" onclick="toggleMenu()">Contact</a>
         </div>
 
-        <div class="absolute bottom-12 flex gap-8 text-gray-500">
-            <a href="#" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="#" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-twitter text-xl"></i></a>
-            <a href="#" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-linkedin-in text-xl"></i></a>
+        <div class="absolute bottom-12 flex gap-8 text-gray-400">
+            <!-- ✅ ACCESSIBILITY FIX: Added aria-labels to social icons -->
+            <a href="#" aria-label="Visit our Instagram profile" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="#" aria-label="Visit our Twitter profile" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" aria-label="Visit our LinkedIn profile" class="hover:text-white transition transform hover:scale-125"><i class="fab fa-linkedin-in text-xl"></i></a>
         </div>
     </div>
 
