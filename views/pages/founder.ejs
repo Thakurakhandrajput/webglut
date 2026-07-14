@@ -1,0 +1,201 @@
+<%- include('../partials/header') %>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Akhand Pratap Singh",
+  "jobTitle": "CEO & Founder",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Webglut Agency"
+  },
+  "url": "https://webglut.in/founder",
+  "image": "https://ui-avatars.com/api/?name=Akhand+Pratap+Singh&background=00f3ff&color=000&size=512",
+  "telephone": "+91-9115035491",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Saraiya Ratnawe, Pauhari Baba",
+    "addressLocality": "Azamgarh",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "276142",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.instagram.com/akhand_singh_0327",
+    "https://linkedin.com/in/akhand-pratap-singh",
+    "https://github.com/webglut",
+    "https://webglut.in"
+  ],
+  "birthDate": "2007-03-27"
+}
+</script>
+
+<style>
+    /* GLOBAL DARK THEME */
+    body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+    /* HERO SECTION */
+    .founder-hero {
+        min-height: 90vh;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        text-align: center;
+        position: relative;
+        padding: 100px 20px;
+        background: radial-gradient(circle at center, rgba(0, 243, 255, 0.05) 0%, #050505 70%);
+    }
+
+    /* PROFILE IMAGE (GLOWING RING) */
+    .profile-container {
+        width: 200px; height: 200px;
+        border-radius: 50%;
+        padding: 5px;
+        background: linear-gradient(135deg, #00f3ff, #0066ff);
+        box-shadow: 0 0 60px rgba(0, 243, 255, 0.4);
+        margin-bottom: 40px;
+        position: relative;
+        animation: float 6s ease-in-out infinite;
+    }
+    .profile-img {
+        width: 100%; height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #000;
+        filter: contrast(1.1);
+    }
+    .verified-badge {
+        position: absolute; bottom: 10px; right: 10px;
+        background: #00f3ff; color: #000;
+        width: 40px; height: 40px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        border: 3px solid #000; font-size: 18px;
+    }
+
+    /* TYPOGRAPHY */
+    .name-title {
+        font-size: 60px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; line-height: 1;
+        background: linear-gradient(to right, #fff, #aaa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+    }
+    .role-badge {
+        display: inline-block; padding: 8px 20px;
+        border: 1px solid #00f3ff; border-radius: 50px;
+        color: #00f3ff; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 12px;
+        background: rgba(0, 243, 255, 0.05);
+        margin-bottom: 30px;
+    }
+
+    /* INFO GRID (DIGITAL ID CARD) */
+    .info-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px; max-width: 1000px; width: 100%; margin-top: 50px;
+    }
+    .info-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 30px; border-radius: 20px;
+        text-align: left; backdrop-filter: blur(10px);
+        transition: 0.3s;
+    }
+    .info-card:hover { border-color: #00f3ff; transform: translateY(-5px); }
+    
+    .label { color: #555; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+    .value { color: #fff; font-size: 18px; font-weight: 600; }
+    .value a { color: #fff; text-decoration: none; transition: 0.3s; }
+    .value a:hover { color: #00f3ff; }
+
+    /* SOCIAL BUTTONS */
+    .social-bar {
+        display: flex; gap: 20px; margin-top: 40px; flex-wrap: wrap; justify-content: center;
+    }
+    .social-btn {
+        display: flex; align-items: center; gap: 10px;
+        padding: 12px 25px; border-radius: 12px;
+        background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+        color: white; text-decoration: none; font-weight: 600; transition: 0.3s;
+    }
+    .social-btn:hover { background: white; color: black; transform: translateY(-3px); }
+    .social-btn.insta:hover { background: #E1306C; color: white; border-color: #E1306C; }
+    .social-btn.whatsapp:hover { background: #25D366; color: white; border-color: #25D366; }
+
+    /* ANIMATIONS */
+    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+
+    /* BACKGROUND FX */
+    .bg-lines {
+        position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px; opacity: 0.2; z-index: -1;
+    }
+
+</style>
+
+<main>
+    <div class="founder-hero">
+        <div class="bg-lines"></div>
+
+        <div class="profile-container">
+            <img src="https://ui-avatars.com/api/?name=Akhand+Pratap+Singh&background=00f3ff&color=000&size=512&bold=true" alt="Akhand Pratap Singh" class="profile-img">
+            <div class="verified-badge"><i class="fas fa-check"></i></div>
+        </div>
+
+        <h1 class="name-title">Akhand Pratap Singh</h1>
+        <div class="role-badge">CEO & Founder • Age 19 • Visionary</div>
+
+        <p style="max-width: 700px; color: #888; line-height: 1.8; font-size: 18px; margin-bottom: 20px;">
+            "I don't just write code; I engineer digital dominance. At 19, I am building the future of web technology from the heart of Uttar Pradesh."
+        </p>
+
+        <div class="social-bar">
+            <a href="https://www.instagram.com/akhand_singh_0327?igsh=MXc1aXcxY2x0emg0cw==" target="_blank" class="social-btn insta">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://wa.me/919115035491" target="_blank" class="social-btn whatsapp">
+                <i class="fab fa-whatsapp"></i> +91 91150 35491
+            </a>
+            <a href="mailto:contact@webglut.in" class="social-btn">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt" style="color: #00f3ff; font-size: 24px; margin-bottom: 15px;"></i>
+                <span class="label">Headquarters</span>
+                <div class="value">
+                    Saraiya Ratnawe, Pauhari Baba,<br>
+                    Azamgarh, Uttar Pradesh<br>
+                    <span style="color: #666; font-size: 14px;">India - 276142</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-phone-alt" style="color: #00f3ff; font-size: 24px; margin-bottom: 15px;"></i>
+                <span class="label">Direct Line</span>
+                <div class="value">
+                    <a href="tel:+919115035491">+91 91150 35491</a>
+                </div>
+                <span class="label" style="margin-top: 15px;">Official Email</span>
+                <div class="value">
+                    <a href="mailto:contact@webglut.in">contact@webglut.in</a>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-rocket" style="color: #00f3ff; font-size: 24px; margin-bottom: 15px;"></i>
+                <span class="label">Experience</span>
+                <div class="value">Founded Webglut at 19</div>
+                <span class="label" style="margin-top: 15px;">Expertise</span>
+                <div class="value" style="font-size: 14px; line-height: 1.6; color: #aaa;">
+                    Full Stack Dev • AI Integration •<br>High-Performance SEO
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
