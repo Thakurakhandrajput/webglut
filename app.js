@@ -17,6 +17,11 @@ app.get('/', (req, res) => res.render('pages/home', { title: 'Webglut | Digital 
 // FOUNDER / CEO PROFILE ROUTE
 app.get('/founder', (req, res) => res.render('pages/founder', { title: 'Akhand Pratap Singh | CEO Webglut', page: 'founder' }));
 
+app.get('/team', (req, res) => res.render('pages/team', { title: 'Visionaries | Webglut', page: 'team' }));
+
+
+
+
 app.get('/services', (req, res) => res.render('pages/services', { title: 'Our Expertise', page: 'services' }));
 app.get('/portfolio', (req, res) => res.render('pages/portfolio', { title: 'Case Studies', page: 'portfolio' }));
 app.get('/contact', (req, res) => res.render('pages/contact', { title: 'Start Project', page: 'contact' }));
