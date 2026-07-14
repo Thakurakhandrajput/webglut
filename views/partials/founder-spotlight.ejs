@@ -1,0 +1,185 @@
+<style>
+    /* FOUNDER SPOTLIGHT SECTION */
+    .founder-section {
+        padding: 80px 20px;
+        position: relative;
+        overflow: hidden;
+        display: flex; justify-content: center;
+    }
+
+    /* PREMIUM GLASS CARD CONTAINER */
+    .founder-card {
+        max-width: 1100px; width: 100%;
+        background: rgba(20, 20, 20, 0.6);
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        border-radius: 30px;
+        backdrop-filter: blur(20px);
+        display: flex; flex-wrap: wrap;
+        overflow: hidden;
+        box-shadow: 0 0 80px rgba(0, 243, 255, 0.05);
+        position: relative;
+    }
+
+    /* LEFT SIDE: IMAGE */
+    .founder-visual {
+        flex: 1; min-width: 350px;
+        position: relative;
+        background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1), transparent 70%);
+        display: flex; justify-content: center; align-items: center;
+        padding: 50px;
+    }
+    .founder-img-wrapper {
+        width: 280px; height: 280px;
+        border-radius: 50%;
+        padding: 6px;
+        background: linear-gradient(135deg, #00f3ff, #0066ff);
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.3);
+        animation: floatImg 6s ease-in-out infinite;
+    }
+    .founder-img {
+        width: 100%; height: 100%; border-radius: 50%;
+        object-fit: cover; border: 4px solid #000;
+        filter: contrast(1.1) grayscale(20%);
+    }
+
+    /* RIGHT SIDE: CONTENT */
+    .founder-content {
+        flex: 1.5; min-width: 350px;
+        padding: 60px 40px;
+        display: flex; flex-direction: column; justify-content: center;
+        text-align: left;
+    }
+
+    /* TYPOGRAPHY */
+    .label-badge {
+        display: inline-block; background: rgba(0, 243, 255, 0.1);
+        color: #00f3ff; font-size: 12px; font-weight: 800; letter-spacing: 2px;
+        padding: 5px 15px; border-radius: 20px; margin-bottom: 20px; width: fit-content;
+        border: 1px solid rgba(0, 243, 255, 0.2);
+    }
+    .founder-name {
+        font-size: 45px; font-weight: 900; color: white; line-height: 1.1; margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .founder-role {
+        font-size: 18px; color: #888; margin-bottom: 25px; font-weight: 500;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .founder-bio {
+        color: #aaa; font-size: 16px; line-height: 1.7; margin-bottom: 30px; border-left: 3px solid #00f3ff; padding-left: 20px;
+    }
+
+    /* DETAILS GRID */
+    .details-row {
+        display: flex; gap: 30px; margin-bottom: 30px;
+    }
+    .detail-item h4 { color: #fff; font-size: 16px; margin-bottom: 5px; }
+    .detail-item p { color: #666; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ACTION BUTTONS */
+    .founder-actions { display: flex; gap: 15px; }
+    .action-btn {
+        text-decoration: none; padding: 12px 25px; border-radius: 50px; font-weight: 700; font-size: 14px;
+        display: flex; align-items: center; gap: 8px; transition: 0.3s;
+    }
+    .btn-insta { background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); color: white; border: none; }
+    .btn-insta:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(253, 29, 29, 0.3); }
+    
+    .btn-profile { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; }
+    .btn-profile:hover { border-color: #00f3ff; color: #00f3ff; }
+
+    /* ANIMATION */
+    @keyframes floatImg { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+    /* -------------------------------------- */
+    /* 📱 MOBILE FIX (Sabse Important)        */
+    /* -------------------------------------- */
+    @media (max-width: 900px) {
+        .founder-card { 
+            flex-direction: column; 
+            text-align: center; 
+            max-width: 400px; /* Card ko mobile me control karna */
+        }
+        
+        /* Image Section Chhota Karna */
+        .founder-visual { 
+            min-width: 100%; 
+            padding: 40px 20px 20px 20px; 
+            background: radial-gradient(circle at top, rgba(0, 243, 255, 0.15), transparent 60%);
+        }
+        
+        /* Image Size Control */
+        .founder-img-wrapper { 
+            width: 180px; height: 180px; /* Size kam kiya (280 se 180) */
+        }
+
+        /* Content Adjustments */
+        .founder-content { 
+            min-width: 100%; 
+            padding: 30px 20px 40px 20px; 
+            align-items: center; 
+        }
+
+        /* Text Adjustments */
+        .label-badge { margin: 0 auto 15px; }
+        .founder-name { font-size: 32px; } /* Naam thoda chhota taaki fit aaye */
+        .founder-role { justify-content: center; font-size: 16px; }
+        
+        .founder-bio { 
+            border-left: none; 
+            border-top: 2px solid #00f3ff; 
+            padding-top: 20px; 
+            padding-left: 0; 
+            font-size: 14px;
+        }
+
+        .details-row { justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .founder-actions { justify-content: center; flex-wrap: wrap; }
+        .action-btn { width: 100%; justify-content: center; } /* Buttons full width on mobile */
+    }
+</style>
+
+<section class="founder-section">
+    <div style="position: absolute; width: 500px; height: 500px; background: #00f3ff; filter: blur(300px); opacity: 0.05; right: -10%; top: 10%; z-index: -1;"></div>
+
+    <div class="founder-card">
+        <div class="founder-visual">
+            <div class="founder-img-wrapper">
+                <img src="https://ui-avatars.com/api/?name=Akhand+Pratap+Singh&background=000&color=00f3ff&size=512&bold=true" alt="Akhand Pratap Singh" class="founder-img">
+            </div>
+        </div>
+
+        <div class="founder-content">
+            <div class="label-badge">THE ARCHITECT</div>
+            
+            <h2 class="founder-name">Akhand Pratap Singh</h2>
+            <div class="founder-role">
+                <i class="fas fa-code" style="color: #00f3ff;"></i> Founder & CEO (Age 19)
+            </div>
+
+            <p class="founder-bio">
+                "Building Webglut from Saraiya Ratnawe, Azamgarh with a single mission: To replace boring websites with digital dominance. I engineer chaos into clarity."
+            </p>
+
+            <div class="details-row">
+                <div class="detail-item">
+                    <h4>LOCATION</h4>
+                    <p>Azamgarh, UP</p>
+                </div>
+                <div class="detail-item">
+                    <h4>EXPERTISE</h4>
+                    <p>Full Stack Dev</p>
+                </div>
+            </div>
+
+            <div class="founder-actions">
+                <a href="https://www.instagram.com/akhand_singh_0327" target="_blank" class="action-btn btn-insta">
+                    <i class="fab fa-instagram"></i> Follow
+                </a>
+                <a href="/founder" class="action-btn btn-profile">
+                    View Full Profile <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
