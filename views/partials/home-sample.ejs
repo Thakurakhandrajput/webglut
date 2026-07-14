@@ -51,7 +51,8 @@
                     
                     <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
                         <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
-                            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <!-- ✅ SEO & PERFORMANCE FIX: Added alt, loading="lazy", decoding="async", and fm=webp -->
+                            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fm=webp&fit=crop" alt="Webglut Pet Care Portal Website Development" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">Website</div>
                         </div>
                         <div class="px-1">
@@ -62,7 +63,7 @@
 
                     <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
                         <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
-                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fm=webp&fit=crop" alt="Webglut Gym and Fitness Hub UI Design" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">Fitness UI</div>
                         </div>
                         <div class="px-1">
@@ -73,7 +74,7 @@
 
                     <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
                         <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
-                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fm=webp&fit=crop" alt="Webglut Digital Storefront E-Commerce Solution" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">E-Com</div>
                         </div>
                         <div class="px-1">
@@ -84,7 +85,7 @@
 
                     <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
                         <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
-                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fm=webp&fit=crop" alt="Webglut Smart NFC Business Card Design" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">NFC Card</div>
                         </div>
                         <div class="px-1">
@@ -95,7 +96,7 @@
 
                     <a href="/samples" class="snap-item w-[80vw] md:w-[400px] glass-card p-4 rounded-[2rem] group block">
                         <div class="h-[220px] md:h-[250px] w-full rounded-2xl overflow-hidden mb-5 relative">
-                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fm=webp&fit=crop" alt="Webglut Custom Mobile App Innovation" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <div class="absolute top-3 right-3 bg-black/70 px-3 py-1 rounded-full border border-[#00f3ff]/30 text-[#00f3ff] text-[10px] font-bold uppercase">Mobile App</div>
                         </div>
                         <div class="px-1">
@@ -110,7 +111,8 @@
             <div class="mt-8 text-center px-6">
                 <a href="/samples" class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-[#00f3ff]/10 hover:border-[#00f3ff]/50 transition-all font-bold group">
                     Explore All Capabilities
-                    <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+                    <!-- ✅ ACCESSIBILITY FIX: Hidden icon from screen readers -->
+                    <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -119,7 +121,11 @@
     <script>
         const slider = document.getElementById('sample-scroll');
         function autoScroll() {
-            const cardWidth = slider.querySelector('.snap-item').offsetWidth + 20; 
+            if (!slider) return; // Added safety check
+            const firstItem = slider.querySelector('.snap-item');
+            if (!firstItem) return; // Added safety check
+            
+            const cardWidth = firstItem.offsetWidth + 20; 
             const maxScroll = slider.scrollWidth - slider.clientWidth;
             if (slider.scrollLeft >= maxScroll - 5) {
                 slider.scrollTo({ left: 0, behavior: 'smooth' });
@@ -128,7 +134,9 @@
             }
         }
         let scrollInterval = setInterval(autoScroll, 5000);
-        slider.addEventListener('touchstart', () => clearInterval(scrollInterval), { passive: true });
+        if (slider) {
+            slider.addEventListener('touchstart', () => clearInterval(scrollInterval), { passive: true });
+        }
     </script>
 </body>
 </html>
