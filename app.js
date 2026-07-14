@@ -14,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // 2. MAIN ROUTES
 app.get('/', (req, res) => res.render('pages/home', { title: 'Webglut | Digital Reality', page: 'home' }));
+// FOUNDER / CEO PROFILE ROUTE
+app.get('/founder', (req, res) => res.render('pages/founder', { title: 'Akhand Pratap Singh | CEO Webglut', page: 'founder' }));
+
 app.get('/services', (req, res) => res.render('pages/services', { title: 'Our Expertise', page: 'services' }));
 app.get('/portfolio', (req, res) => res.render('pages/portfolio', { title: 'Case Studies', page: 'portfolio' }));
 app.get('/contact', (req, res) => res.render('pages/contact', { title: 'Start Project', page: 'contact' }));
