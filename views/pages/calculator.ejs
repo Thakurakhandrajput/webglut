@@ -1,7 +1,5 @@
 <%- include('../partials/header') %>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <style>
     /* --- ULTIMATE CONFIGURATOR CSS --- */
     .config-section {
@@ -178,11 +176,7 @@
                         <span class="text-[#00f3ff]" id="totalPrice">₹1,500</span>
                     </div>
 
-                    <button onclick="payNow()" class="w-full mt-8 bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-all uppercase tracking-widest flex items-center justify-center gap-2 mb-3">
-                        <i class="fas fa-credit-card text-xl"></i> Pay Token (₹100)
-                    </button>
-
-                    <button onclick="sendToWhatsapp()" class="w-full bg-[#00f3ff] text-black font-bold py-4 rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all uppercase tracking-widest flex items-center justify-center gap-2">
+                    <button onclick="sendToWhatsapp()" class="w-full mt-8 bg-[#00f3ff] text-black font-bold py-4 rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all uppercase tracking-widest flex items-center justify-center gap-2">
                         <i class="fab fa-whatsapp text-xl"></i> Book via WhatsApp
                     </button>
 
@@ -284,58 +278,6 @@
             ${service > 0 ? `<div class="flex justify-between border-t border-gray-800 pt-2 mt-2"><span>Agency Services</span> <span>₹${service}</span></div>` : ''}
             ${discountAmount > 0 ? `<div class="flex justify-between text-green-400 border-t border-gray-800 pt-2 mt-2 font-bold"><span>Coupon (${appliedCouponCode})</span> <span>-₹${Math.floor(discountAmount)}</span></div>` : ''}
         `;
-    }
-
-    // --- LIVE PAYMENT FUNCTION ---
-    async function payNow() {
-        const amount = 100; // ₹100 Booking Amount
-        
-        try {
-            // 1. Create Order
-            const response = await fetch('/create-order', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount: amount })
-            });
-            
-            // Check for Server Error
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error("Server Response:", errorText);
-                alert("Server Error! Status: " + response.status + "\n\n(Please check if you restarted the Node.js server in cPanel)");
-                return;
-            }
-
-            const order = await response.json();
-
-            // 2. Open Razorpay Options
-            const options = {
-                "key": "Rzp_live_S7JVPCfG8RM4xl", // 🔥 LIVE KEY ID 🔥
-                "amount": order.amount,
-                "currency": "INR",
-                "name": "Webglut Agency",
-                "description": "Project Token Booking",
-                "image": "/images/logo.png",
-                "order_id": order.id, 
-                "handler": function (response){
-                    alert("✅ Payment Successful! ID: " + response.razorpay_payment_id);
-                    // Send confirmation to WhatsApp
-                    sendToWhatsapp(response.razorpay_payment_id);
-                },
-                "prefill": {
-                    "name": "", // Optional
-                    "email": "",
-                    "contact": ""
-                },
-                "theme": { "color": "#00f3ff" }
-            };
-
-            const rzp1 = new Razorpay(options);
-            rzp1.open();
-        } catch (err) {
-            console.error("JS Error:", err);
-            alert("Unexpected Error: " + err.message);
-        }
     }
 
     // --- WHATSAPP SEND ---
