@@ -1,3 +1,4 @@
+require('dotenv').config(); // .env file se password read karne ke liye
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -11,6 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // NAYA: Frontend fetch (AJAX) JSON data parse karne ke liye
 
 // 2. MAIN ROUTES
 app.get('/', (req, res) => res.render('pages/home', { title: 'Webglut | Digital Reality', page: 'home' }));
@@ -18,9 +20,6 @@ app.get('/', (req, res) => res.render('pages/home', { title: 'Webglut | Digital 
 app.get('/founder', (req, res) => res.render('pages/founder', { title: 'Akhand Pratap Singh | CEO Webglut', page: 'founder' }));
 
 app.get('/team', (req, res) => res.render('pages/team', { title: 'Visionaries | Webglut', page: 'team' }));
-
-
-
 
 app.get('/services', (req, res) => res.render('pages/services', { title: 'Our Expertise', page: 'services' }));
 app.get('/portfolio', (req, res) => res.render('pages/portfolio', { title: 'Case Studies', page: 'portfolio' }));
@@ -68,28 +67,29 @@ app.get('/project/:slug', (req, res) => {
     }
 });
 
-// 7. FORM SUBMIT HANDLER (ONLY ONE - FIXED)
+// 7. FORM SUBMIT HANDLER (UPDATED FOR ZOHO & POPUP)
 app.post('/contact-submit', async (req, res) => {
     // 1. Data Receive
     const { name, phone, email, message, service, project_interest } = req.body;
     
     console.log('Inquiry Received:', req.body); 
 
-    // 2. SMTP Transporter
+    // 2. Zoho SMTP Transporter
     const transporter = nodemailer.createTransport({
-        host: 'mail.webglut.in',
+        host: 'smtp.zoho.in', // Zoho ka official SMTP server
         port: 465,
         secure: true,
         auth: {
-            user: 'Contact@webglut.in',
-            pass: process.env.EMAIL_PASS // Password ab safe hai
+            user: 'contact@webglut.in',
+            pass: process.env.EMAIL_PASS // .env file me apna Zoho wala password rakhein
         }
     });
 
     // 3. Email Template
     const mailOptions = {
-        from: '"Webglut Website" <Contact@webglut.in>',
-        to: 'Contact@webglut.in',
+        from: '"Webglut Website" <contact@webglut.in>', // Sender hamesha verified id honi chahiye
+        replyTo: email, // IMPORTANT: Isse Zoho ka auto-reply seedhe client ko jayega
+        to: 'contact@webglut.in', // Ye form detail aapko yahan receive hogi
         subject: `🔥 New Lead: ${name || 'User'} - ${service || project_interest || 'General Inquiry'}`,
         html: `
             <div style="background-color:#050505; padding:30px; font-family:Arial, sans-serif;">
@@ -117,14 +117,16 @@ app.post('/contact-submit', async (req, res) => {
         `
     };
 
-    // 4. Send Mail Logic
+    // 4. Send Mail Logic (JSON Response for Frontend Popup)
     try {
         await transporter.sendMail(mailOptions);
         console.log('✅ Email Sent Successfully');
-        res.redirect('/success');
+        // Success JSON bhejenge jisse frontend me popup show hoga aur 3 sec me redirect karega
+        res.status(200).json({ success: true, message: 'Message sent successfully' });
     } catch (error) {
         console.error('❌ Email Error:', error);
-        res.redirect('/success');
+        // Error aane par JSON fail status bhejenge
+        res.status(500).json({ success: false, message: 'Failed to send message' });
     }
 });
 
