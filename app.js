@@ -1,4 +1,3 @@
-require('dotenv').config(); // .env file se password read karne ke liye
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -12,7 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // NAYA: Frontend fetch (AJAX) JSON data parse karne ke liye
+app.use(express.json()); // Frontend popup ke liye zaruri
 
 // 2. MAIN ROUTES
 app.get('/', (req, res) => res.render('pages/home', { title: 'Webglut | Digital Reality', page: 'home' }));
@@ -67,49 +66,44 @@ app.get('/project/:slug', (req, res) => {
     }
 });
 
-// 7. FORM SUBMIT HANDLER (UPDATED FOR ZOHO & POPUP)
+// 7. FORM SUBMIT HANDLER (POPUP & AUTO-REPLY SUPPORTED)
 app.post('/contact-submit', async (req, res) => {
-    // 1. Data Receive
     const { name, phone, email, message, service, project_interest } = req.body;
     
     console.log('Inquiry Received:', req.body); 
 
-    // 2. Zoho SMTP Transporter
+    // Zoho SMTP Transporter
     const transporter = nodemailer.createTransport({
-        host: 'smtp.zoho.in', // Zoho ka official SMTP server
+        host: 'smtp.zoho.in',
         port: 465,
         secure: true,
         auth: {
             user: 'contact@webglut.in',
-            pass: process.env.EMAIL_PASS // .env file me apna Zoho wala password rakhein
+            pass: 'Akhand*9115025412#' // <-- YAHAN APNA ASLI ZOHO PASSWORD LIKHEIN
         }
     });
 
-    // 3. Email Template
+    // Email Template
     const mailOptions = {
-        from: '"Webglut Website" <contact@webglut.in>', // Sender hamesha verified id honi chahiye
-        replyTo: email, // IMPORTANT: Isse Zoho ka auto-reply seedhe client ko jayega
-        to: 'contact@webglut.in', // Ye form detail aapko yahan receive hogi
+        from: '"Webglut Website" <contact@webglut.in>', 
+        replyTo: email, // Isse auto-reply client ko jayega
+        to: 'contact@webglut.in', 
         subject: `🔥 New Lead: ${name || 'User'} - ${service || project_interest || 'General Inquiry'}`,
         html: `
             <div style="background-color:#050505; padding:30px; font-family:Arial, sans-serif;">
                 <div style="max-width:600px; margin:auto; background:#111; padding:30px; border-radius:15px; border: 1px solid #333; color: #fff;">
-                    
                     <h2 style="color:#00f3ff; margin-top:0;">New Project Inquiry</h2>
                     <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
-
                     <p style="font-size:16px;"><strong>👤 Name:</strong> <span style="color:#bbb;">${name || 'Not Provided'}</span></p>
                     <p style="font-size:16px;"><strong>📞 Phone:</strong> <span style="color:#bbb;"><a href="tel:${phone}" style="color:#00f3ff; text-decoration:none;">${phone || 'Not Provided'}</a></span></p>
                     <p style="font-size:16px;"><strong>✉️ Email:</strong> <span style="color:#bbb;">${email || 'Not Provided'}</span></p>
                     <p style="font-size:16px;"><strong>🛠 Interest:</strong> <span style="color:#00f3ff;">${service || project_interest || 'General Contact'}</span></p>
-                    
                     <div style="background:#222; padding:15px; border-radius:10px; margin-top:20px;">
                         <p style="margin:0; font-size:14px; color:#888; text-transform:uppercase; font-weight:bold;">📝 Client Message:</p>
                         <p style="margin-top:10px; font-size:15px; line-height:1.5; color:#fff;">
                             ${message ? message.replace(/\n/g, '<br>') : 'No message written.'}
                         </p>
                     </div>
-
                     <br>
                     <a href="https://wa.me/91${phone}" style="background:#25D366; color:#fff; padding:10px 20px; text-decoration:none; border-radius:5px; font-weight:bold; display:inline-block;">Chat on WhatsApp</a>
                 </div>
@@ -117,15 +111,12 @@ app.post('/contact-submit', async (req, res) => {
         `
     };
 
-    // 4. Send Mail Logic (JSON Response for Frontend Popup)
     try {
         await transporter.sendMail(mailOptions);
         console.log('✅ Email Sent Successfully');
-        // Success JSON bhejenge jisse frontend me popup show hoga aur 3 sec me redirect karega
         res.status(200).json({ success: true, message: 'Message sent successfully' });
     } catch (error) {
         console.error('❌ Email Error:', error);
-        // Error aane par JSON fail status bhejenge
         res.status(500).json({ success: false, message: 'Failed to send message' });
     }
 });
