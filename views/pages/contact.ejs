@@ -95,7 +95,9 @@
             <div class="fade-up">
                 <div class="contact-card">
                     <h2 class="text-2xl font-bold text-white mb-8">Send a Message</h2>
-                    <form action="/contact-submit" method="POST">
+                    
+                    <!-- Form ka action/method hata kar id lagayi gayi hai -->
+                    <form id="contactForm">
                         
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="input-group">
@@ -214,6 +216,18 @@
         </div>
     </section>
 
+    <!-- SUCCESS POPUP (Hidden by default) -->
+    <div id="successPopup" class="fixed inset-0 flex items-center justify-center z-50 pointer-events-none opacity-0 transition-opacity duration-300 bg-black/80 backdrop-blur-sm">
+        <div class="bg-[#0a0a0a] border border-[#00f3ff]/30 p-8 rounded-2xl text-center transform scale-95 transition-transform duration-300 shadow-[0_0_40px_rgba(0,243,255,0.15)] max-w-sm w-full mx-4">
+            <i class="fas fa-check-circle text-[#00f3ff] text-6xl mb-4"></i>
+            <h3 class="text-2xl font-bold text-white mb-2">Request Sent!</h3>
+            <p class="text-gray-400 text-sm mb-6">Your project request has been successfully delivered. We will contact you shortly.</p>
+            <div class="flex items-center justify-center gap-2 text-xs text-[#00f3ff] font-bold uppercase tracking-wider">
+                <i class="fas fa-spinner fa-spin"></i> Redirecting to Home...
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <%- include('../partials/footer') %>
@@ -245,6 +259,60 @@
             scrollTrigger: {
                 trigger: '.contact-hero',
                 start: "top 80%"
+            }
+        });
+    }
+
+    // 3. FORM SUBMIT & POPUP LOGIC
+    const contactForm = document.getElementById('contactForm');
+    const successPopup = document.getElementById('successPopup');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Page refresh hone se rokega
+            
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Button ko loading state me badlein
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70');
+
+            // Form ka data collect karein
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Backend par data bhejein
+                const response = await fetch('/contact-submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // Popup show karein
+                    successPopup.classList.remove('opacity-0', 'pointer-events-none');
+                    successPopup.querySelector('div').classList.remove('scale-95');
+                    successPopup.querySelector('div').classList.add('scale-100');
+
+                    // 3 Second baad home page par redirect karein
+                    setTimeout(() => {
+                        window.location.href = '/'; 
+                    }, 3000);
+                } else {
+                    alert("Something went wrong. Please try again.");
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-70');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert("Network error. Failed to send request.");
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-70');
             }
         });
     }
